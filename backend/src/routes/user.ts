@@ -1,6 +1,6 @@
 
-import { PrismaClient } from "@prisma/client/extension";
-import { withAccelerate } from "@prisma/extension-accelerate";
+import { PrismaClient } from '@prisma/client/edge'
+import { withAccelerate } from '@prisma/extension-accelerate'
 import { Hono } from "hono";
 import { sign, verify } from "hono/jwt";
 
@@ -18,15 +18,16 @@ export const userRouter= new Hono<{
   userRouter.post("/signup", async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate());
+  }).$extends(withAccelerate())
   
-    const body = await c.req.json();
+    const body= await c.req.json();
   
     try {
       const user = await prisma.user.create({
-        data: {
+       data:{
           email: body.email,
           password: body.password,
+          name:body.name,
         },
       });
   
@@ -50,6 +51,7 @@ export const userRouter= new Hono<{
     }).$extends(withAccelerate());
   
     const body = await c.req.json();
+   
 
     const user = await prisma.user.findUnique({
       where: {
