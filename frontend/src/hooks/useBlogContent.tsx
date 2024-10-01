@@ -5,11 +5,13 @@ import axios from "axios";
 
 
 export interface Blog{
+    createdAt: string | number | Date;
     id:string,
     content:string,
     title:string,
     author:{
-        name:string
+        name:string,
+        description:string,
     }
 
 }

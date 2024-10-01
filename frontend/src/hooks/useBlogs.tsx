@@ -3,11 +3,13 @@ import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config";
 
 export interface Blog{
+    createdAt: string | number | Date;
     id:string,
     content:string,
     title:string,
     author:{
-        name:string
+        name:string,
+        description:string,
     }
 
 }

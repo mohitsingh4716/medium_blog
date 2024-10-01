@@ -2,6 +2,9 @@
 import { Appbar } from "../components/Appbar"
 import { BlogCard } from "../components/BlogCard"
 import { useBlogs } from "../hooks/useBlogs"
+import { BlogLoading } from "../Loadings/BlogLoading";
+import { format } from 'date-fns';
+
 
 
 export const Blog = () => {
@@ -14,7 +17,7 @@ export const Blog = () => {
         if(loading){
           return <div>
             {/* skeleton */}
-            Loading.. 
+           <BlogLoading/>
           </div>
         }
 
@@ -29,8 +32,9 @@ export const Blog = () => {
             authorName={blog.author.name || "Anonymous"}
             title={blog.title}
             content={blog.content}
-            publishedDate={"2nd Feb 2024"}
-            />)}
+            publishedDate={format(new Date(blog.createdAt), 'do MMM yyyy')} 
+            description={blog.author.description}   
+                     />)}
             
         </div>
 

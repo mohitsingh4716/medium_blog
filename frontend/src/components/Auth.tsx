@@ -10,6 +10,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     name: "",
     email: "",
     password: "",
+    description: "",
   });
 
   const sendRequest= async()=>{
@@ -20,7 +21,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       
 
       localStorage.setItem("token",jwt);
-      navigate("/blog");
+      navigate("/blogs");
     }catch(e){
       alert("Error while signing up")
       // alert the user here that the request failed
@@ -84,6 +85,20 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               }}
             />
 
+
+              { type==="signup" && <LabelledInput
+                label="Description"
+                placeholder="I am a software engineer..."
+                onChange={(e) => {
+                  setPostInputs((c) => ({
+                    ...c,
+                    description: e.target.value,
+                  }));
+                }}
+              />
+            }
+
+
             <button
               type="button"
               onClick={sendRequest}
@@ -98,12 +113,16 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   );
 };
 
+
+
 interface LabelledInputType {
   label: string;
   placeholder: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: string;
 }
+
+
 function LabelledInput({
   label,
   placeholder,
@@ -113,7 +132,7 @@ function LabelledInput({
   return (
     <div>
       <div>
-        <label className="block mb-2 text-sm  text-black font-semibold">
+        <label className="block mb-2 text-sm  text-black font-semibold pt-4 px-2">
           {label}
         </label>
         <input

@@ -1,6 +1,7 @@
 import { Appbar } from "./Appbar";
 import { Blog } from "../hooks/useBlogs";
 import { Avatar } from "./BlogCard";
+import { format } from "date-fns";
 
 export const FullBlogContent = ({ blog }: { blog: Blog }) => {
   return (
@@ -12,9 +13,9 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
                 <div className=" text-5xl font-extrabold">
                     {blog.title}
                 </div>
-               <div className="text-slate-500">Post on 16 sep 2024</div>
-                <div className="pt-2">
-                    {blog.content}
+               <div className="text-slate-500 pt-4">{format(new Date(blog.createdAt), 'do MMM yyyy')}</div>
+                <div className="pt-2 text-justify mr-4 " dangerouslySetInnerHTML={{ __html: blog.content }}>
+                
                 </div>
             </div>
 
@@ -32,7 +33,7 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
                         {blog.author.name || "Anonymous"}
                         </div>
                         <div className="text-slate-500">
-                        I have to study myself in actuality – as I am, not as I wish to be.
+                        {blog.author.description || "I have to study myself in actuality – as I am, not as I wish to be."}
                         </div>
                     </div>
                    

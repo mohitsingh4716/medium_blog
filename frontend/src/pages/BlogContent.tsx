@@ -1,6 +1,7 @@
 import { FullBlogContent } from "../components/FullBlogContent";
 import { useBlogContent } from "../hooks/useBlogContent"
 import { useParams } from "react-router-dom";
+import { Loadings } from "../Loadings/Loadings";
 
 export const BlogContent = () => {
     const {id}= useParams();
@@ -10,7 +11,7 @@ export const BlogContent = () => {
 
        if(loading || !blog){
         return <div>
-            Loading.
+           <Loadings/>
         </div>
        }
    return (

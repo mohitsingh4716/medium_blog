@@ -1,29 +1,92 @@
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 
 
+export const Appbar = () => {
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+    };
 
-export const Appbar= ()=>{
+ 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setDropdownVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        if (dropdownVisible) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdownVisible]);
+
     return (
-     <div className="border-b flex justify-between px-10 py-4">
-
-        <Link to={"/blogs"}><div className="flex flex-col justify-center">
-            Medium
-        </div></Link>
-        <div className="flex">
-            <Link to={`/publish`}>
-            <button type="button" className="mr-8 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">New</button>
+        <div className="border-b flex justify-between px-8 py-1 h-auto">
+            <Link to={"/blogs"}>
+                <div className="flex flex-col justify-center h-12 max-w-36">
+                    <img src="https://seekvectorlogo.com/wp-content/uploads/2021/12/medium-vector-logo-2021.png" />
+                </div>
             </Link>
 
+            <div className="flex relative">
+                <Link to={`/publish`}>
+                    <button
+                        type="button"
+                        className="mr-8 text-black border-2 font-semibold focus:outline-none focus:ring-4 rounded-lg text-sm px-7 py-2.5 text-center me-2 mb-2"
+                    >
+                        Create new Blog
+                    </button>
+                </Link>
 
-            <Avatar size={"big"} name={"Mohit"} />
+                <button onClick={toggleDropdown} className="focus:outline-none">
+                    <Avatar size={"big"} name={"M"} />
+                </button>
+
+                {dropdownVisible && <Dropdown dropdownRef={dropdownRef} />}
+            </div>
         </div>
-        
-    
-
-      
-     </div>
     );
+};
 
-}
+const Dropdown = ({ dropdownRef }: { dropdownRef: React.RefObject<HTMLDivElement> }) => {
+    return (
+        <div
+            ref={dropdownRef}
+            id="dropdownNavbar"
+            className="absolute right-0 top-14 z-20 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+        >
+            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Profile
+                    </a>
+                </li>
+            </ul>
+            <div className="py-1">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    Sign out
+                </a>
+            </div>
+        </div>
+    );
+};

@@ -3,10 +3,15 @@ import { Appbar } from "../components/Appbar"
 import { BACKEND_URL } from "../config"
 import { ChangeEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
-// import Tiptap from "../components/Tiptap"
 
 
-export const Publish = () => {
+
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+
+export const NewPublish = () => {
     const [title, setTitle]= useState("");
     const [content, setContent]= useState("");
     const navigate= useNavigate();
@@ -21,14 +26,15 @@ export const Publish = () => {
                     setTitle(e.target.value)
                 }} type="text" className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title"/>
 
-                <TextEditor onChange={(e)=>{
-                    setContent(e.target.value)
+                <TextEditor onChange={(value)=>{
+                    setContent(value)
                 }}/>
+
                 
                 <button onClick={async()=>{
                const response=await axios.post(`${BACKEND_URL}/api/v1/blog`,{
                     title,
-                    content 
+                    content
                 },{
                     headers:{
                         Authorization: localStorage.getItem("token")
@@ -36,7 +42,7 @@ export const Publish = () => {
                 });
                 navigate(`/blog/${response.data.id}`)
 
-            }} type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+            }} type="submit" className="inline-flex items-center mt-10 py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                 Publish
             </button>
             </div>
@@ -48,18 +54,15 @@ export const Publish = () => {
 }
 
 
-function TextEditor({onChange}:{onChange: (e:ChangeEvent<HTMLTextAreaElement>)=>void}){
-    
-    return <div>
-    <div className="max-w-screen-lg mb-4 border border-gray-200 rounded-lg bg-gray-50">
-        <div className=" py-2 bg-white rounded-b-lg ">
-            <label  className="sr-only">Publish</label>
-            <textarea onChange={onChange} id="comment" rows={8} className=" focus:outline-none pl-2  w-full px-0 text-sm text-gray-900 bg-white border-0  focus:ring-0 " placeholder="Write a article..." required />
-           
-        </div>
-      
-    </div> 
 
-     </div>       
+
+
+
+
+
+function TextEditor({onChange}:{onChange: (value: string) => void}) {
+  
+
+  return <ReactQuill theme={"snow"} onChange={onChange} />;
 }
-
+    

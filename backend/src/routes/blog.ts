@@ -67,7 +67,8 @@ blogRouter.post("/", async(c) => {
         }
       })
     return c.json({
-    id:blog.id
+    id:blog.id,
+    createdAt: blog.createdAt,
      });
 });
 
@@ -101,7 +102,8 @@ blogRouter.put("/", async(c) => {
       })
 
     return c.json({
-    id:post.id
+    id:post.id,
+   
      });
 });
 
@@ -137,13 +139,16 @@ blogRouter.get("/bulk", async(c) => {
 	}).$extends(withAccelerate());
 	
    const posts= await prisma.post.findMany({
-        select:{ 
+        select:{   
+            id:true,
             title:true,
             content:true,
-            id:true,
+            createdAt: true,
+          
             author:{
                 select:{
                     name:true,
+                    description:true,
                 }
             }
 
@@ -172,9 +177,11 @@ blogRouter.get('/:id', async (c) => {
                 id:true,
                 title: true,
                 content:true,
+                createdAt: true,
                 author:{
                     select:{
                         name:true,
+                        description:true,
                     }
                 }
             }
@@ -189,6 +196,33 @@ blogRouter.get('/:id', async (c) => {
         })
     }
 })
+
+blogRouter.delete("/deleteblog/:id", async (c) => {
+    try {
+      const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
+  
+      const id = c.req.param("id");
+  
+      await prisma.post.delete({
+        where: {
+          id,
+          authorId: c.get("userId"),
+        },
+      });
+  
+      return c.json({
+        msg: "Blog Deleted",
+      });
+    } catch (error) {
+      console.log(error);
+      c.status(400);
+      return c.json({
+        error: "Error while deleting blog",
+      });
+    }
+  });
 
  
 

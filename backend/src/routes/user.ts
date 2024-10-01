@@ -40,6 +40,7 @@ export const userRouter= new Hono<{
           email: body.email,
           password: body.password,
           name:body.name,
+          description:body.description,
         },
       });
   

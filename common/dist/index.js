@@ -8,7 +8,8 @@ const zod_1 = __importDefault(require("zod"));
 exports.signupInput = zod_1.default.object({
     email: zod_1.default.string().email(),
     password: zod_1.default.string(),
-    name: zod_1.default.string().optional(),
+    name: zod_1.default.string(),
+    description: zod_1.default.string().optional(),
 });
 exports.signinInput = zod_1.default.object({
     email: zod_1.default.string().email(),

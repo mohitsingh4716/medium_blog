@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+    font-size: 2.5rem; /* 40px */
+}
+
+h2 {
+    font-size: 2rem; /* 32px */
+}
+
+h3 {
+    font-size: 1.75rem; /* 28px */
+}
+
+h4 {
+    font-size: 1.5rem; /* 24px */
+}
+
+h5 {
+    font-size: 1.25rem; /* 20px */
+}
+
+h6 {
+    font-size: 1rem; /* 16px */
+}
+
+ul {
+    list-style-type: disc; /* or decimal for ordered lists */
+    padding-left: 20px; /* Adds left padding to display bullets/numbers */
+}
+
+ol {
+    list-style-type: decimal; /* This ensures the list is numbered */
+    padding-left: 20px; /* Adds left padding for proper number display */
+}
+
