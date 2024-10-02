@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.ql-editor {
+    font-size: 20px; /* Default font size */
+  }
+
 h1 {
     font-size: 2.5rem; /* 40px */
 }
@@ -35,4 +41,6 @@ ol {
     list-style-type: decimal; /* This ensures the list is numbered */
     padding-left: 20px; /* Adds left padding for proper number display */
 }
+
+
 

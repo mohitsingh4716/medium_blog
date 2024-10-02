@@ -5,21 +5,21 @@ export const Loadings = () => {
       <div>
        <Appbar/>
   
-        <div className="flex  animate-pulse pt-6 max-w-screen-2xl mx-auto">
+        <div className="flex  animate-pulse pt-24 max-w-screen-2xl mx-auto">
          
           <div className="w-[72%] ms-4 mt-2">
             < div className="h-8  bg-gray-200 rounded-full w-2/3"></div>
   
             <ul className="mt-6 space-y-4 pl-10">
-              <li className=" h-4 bg-gray-200 rounded"></li>
-              <li className=" h-4 bg-gray-200 rounded"></li>
-              <li className="h-4 bg-gray-200 rounded "></li>
-              <li className=" h-4 bg-gray-200 rounded "></li>
+              <div className=" h-4 bg-gray-200 rounded"></div>
+              <div className=" h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded "></div>
+              <div className=" h-4 bg-gray-200 rounded "></div>
 
-              <li className=" h-4 bg-gray-200 rounded"></li>
-              <li className=" h-4 bg-gray-200 rounded"></li>
-              <li className="h-4 bg-gray-200 rounded "></li>
-              <li className=" h-4 bg-gray-200 rounded "></li>
+              <div className=" h-4 bg-gray-200 rounded"></div>
+              <div className=" h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded "></div>
+              <div className=" h-4 bg-gray-200 rounded "></div>
             </ul>
           </div>
   

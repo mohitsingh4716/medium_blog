@@ -10,7 +10,7 @@ export const BlogContent = () => {
     });
 
        if(loading || !blog){
-        return <div>
+        return <div >
            <Loadings/>
         </div>
        }

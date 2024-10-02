@@ -3,9 +3,8 @@ import { Signup } from './pages/Signup'
 import { Signin } from './pages/Signin'
 import { Blog } from './pages/Blog'
 import { BlogContent } from './pages/BlogContent'
-import { NewPublish } from './pages/NewPublish'
-import { Publish } from './pages/Publish'
 import { LandingPage } from './pages/LandingPage'
+import { Publish } from './pages/Publish'
 
 
 
@@ -20,8 +19,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/blog/:id" element={<BlogContent />} />
           <Route path="/blogs" element={<Blog />} />
-          <Route path="/publish" element={< Publish/>} />
-          <Route path="/newpublish" element={<NewPublish />} />
+          <Route path="/publish" element={<Publish />} />
 
         </Routes>
       </BrowserRouter>

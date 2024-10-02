@@ -4,7 +4,7 @@ const Loading = () => {
   return (
     <div>
       <div className="flex justify-center">
-        <div className="p-4 border-b border-slate-200 pb-4 animate-pulse">
+        <div className="p-4 border-b border-slate-200 pb-4  animate-pulse ">
           <div className="flex">
             <div className="bg-gray-200 rounded-full h-6 w-6"></div>
 
@@ -36,11 +36,15 @@ export const BlogLoading = () => {
              <Appbar/>
 
              
+           <div className="pt-16"> 
+           <Loading/>
+           </div>
             <Loading/>
             <Loading/>
             <Loading/>
-            <Loading/>
-            <Loading/>
+            <Loading/> 
+           
+          
         </div>
 
     )
