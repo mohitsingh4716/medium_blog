@@ -1,11 +1,14 @@
 import { SignupType } from "@mohitsingh4716/medium-common";
 import axios from "axios";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 
-export const Auth = ({ type }: { type: "signup" | "signin" }) => {
+
+export const AuthSignup = () => {
   const navigate= useNavigate();
+  const [modelCard, setModelCard]= useState(false);
+
   const [postInputs, setPostInputs] = useState<SignupType>({
     name: "",
     email: "",
@@ -13,9 +16,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     description: "",
   });
 
+  const handleFirstSubmit= ()=>{
+    if(postInputs.email && postInputs.password){
+        setModelCard(true);
+    }
+  }
+
+  const closeModel= ()=>{
+    setModelCard(false);
+  }
+
   const sendRequest= async()=>{
     try{
-      const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup"?"signup" :"signin"}`, postInputs);
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, postInputs);
       const jwt= response.data.jwt;
       // console.log(jwt);
       
@@ -40,27 +53,14 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               <div>Create an account</div>
             </div>
             <div className="text-slate-400">
-             { type==="signin" ? "Don't have an account" :"Already have account?"}
-              <Link className="pl-2 underline" to={ type=== "signin"? "/signup" : "/signin"}>
-                {type=== "signin" ? "Sign up" : "Sign in"}
+             Already have account?
+              <Link className="pl-2 underline" to={ "/signin"}>
+                Sign in
               </Link>
             </div>
           </div>
 
           <div className="pt-6">
-
-
-           { type==="signup" && <LabelledInput
-              label="Name"
-              placeholder="Mohit Kumar.."
-              onChange={(e) => {
-                setPostInputs((c) => ({
-                  ...c,
-                  name: e.target.value,
-                }));
-              }}
-            />
-           }
 
             <LabelledInput
               label="email"
@@ -86,29 +86,27 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             />
 
 
-              { type==="signup" && <LabelledInput
-                label="Description"
-                placeholder="I am a software engineer..."
-                onChange={(e) => {
-                  setPostInputs((c) => ({
-                    ...c,
-                    description: e.target.value,
-                  }));
-                }}
-              />
-            }
+            
 
 
             <button
               type="button"
-              onClick={sendRequest}
+              onClick={handleFirstSubmit}
               className="mt-8 w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
             >
-              {type === "signup" ? "Sign up" : "Sign in"}
+              Sign up
             </button>
           </div>
         </div>
       </div>
+
+       {modelCard && <ModelCard 
+          setPostInputs={setPostInputs}
+          sendRequest={sendRequest}
+          closeModel={closeModel}
+    
+      />}
+
     </div>
   );
 };
@@ -123,7 +121,7 @@ interface LabelledInputType {
 }
 
 
-function LabelledInput({
+export function LabelledInput({
   label,
   placeholder,
   onChange,
@@ -145,4 +143,61 @@ function LabelledInput({
       </div>
     </div>
   );
+}
+
+
+interface ModelCardProps {
+  setPostInputs: React.Dispatch<React.SetStateAction<SignupType>>;
+  sendRequest: () => void;
+  closeModel: () => void;
+}
+
+const ModelCard = ({ setPostInputs, sendRequest,closeModel }: ModelCardProps) => {
+
+  const modelRef = useRef<HTMLDivElement | null>(null);
+
+  const hideModel=(e: React.MouseEvent<HTMLDivElement>)=>{
+    if(modelRef.current === e.target){
+      closeModel();
+    }
+   }
+  return (
+    <div ref={modelRef} onClick={hideModel} className="fixed inset-0 backdrop-blur-sm  flex justify-center items-center ">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+         <LabelledInput
+              label="Name"
+              placeholder="Mohit Kumar.."
+              onChange={(e) => {
+                setPostInputs((c) => ({
+                  ...c,
+                  name: e.target.value,
+                }));
+              }}
+            />
+           
+
+            <LabelledInput
+                label="Description"
+                placeholder="I am a software engineer..."
+                onChange={(e) => {
+                  setPostInputs((c) => ({
+                    ...c,
+                    description: e.target.value,
+                  }));
+                }}
+              />
+
+
+             <button
+              type="button"
+              onClick={sendRequest}
+              className="mt-8 w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+            >
+              Sign up
+            </button>
+
+            </div>
+
+    </div>
+  )
 }
