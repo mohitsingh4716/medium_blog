@@ -28,7 +28,7 @@ blogRouter.use("/*", async (c, next) => {
     }else{
         c.status(403);
         return c.json({
-            message:"You are not logged in"
+            message:"Unauthorized"
         })
     }
     }

@@ -121,7 +121,7 @@ interface LabelledInputType {
 }
 
 
-export function LabelledInput({
+ function LabelledInput({
   label,
   placeholder,
   onChange,
@@ -162,8 +162,10 @@ const ModelCard = ({ setPostInputs, sendRequest,closeModel }: ModelCardProps) =>
     }
    }
   return (
-    <div ref={modelRef} onClick={hideModel} className="fixed inset-0 backdrop-blur-sm  flex justify-center items-center ">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div ref={modelRef} onClick={hideModel} className="fixed inset-0 backdrop-blur-sm  flex justify-center items-center">
+          <div className="bg-white p-8 w-[380px] h-[440px] rounded-lg shadow-2xl">
+
+         <div>
          <LabelledInput
               label="Name"
               placeholder="Mohit Kumar.."
@@ -176,22 +178,33 @@ const ModelCard = ({ setPostInputs, sendRequest,closeModel }: ModelCardProps) =>
             />
            
 
-            <LabelledInput
-                label="Description"
-                placeholder="I am a software engineer..."
-                onChange={(e) => {
-                  setPostInputs((c) => ({
-                    ...c,
-                    description: e.target.value,
-                  }));
-                }}
-              />
+           <div>
+            <label className="block mb-2 text-sm text-black font-semibold pt-4 px-2">
+              Description
+            </label>
+            <textarea
+              onChange={(e) => {
+                setPostInputs((c) => ({
+                  ...c,
+                  description: e.target.value,
+                }));
+              }}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-40" 
+               placeholder="I am a software engineer..."
+              required
+            />
+          </div>
+
+            </div>
+
+        
+
 
 
              <button
               type="button"
               onClick={sendRequest}
-              className="mt-8 w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              className="mt-8 w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
             >
               Sign up
             </button>
