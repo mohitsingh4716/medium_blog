@@ -104,7 +104,6 @@ export const AuthSignup = () => {
           setPostInputs={setPostInputs}
           sendRequest={sendRequest}
           closeModel={closeModel}
-    
       />}
 
     </div>
@@ -196,11 +195,6 @@ const ModelCard = ({ setPostInputs, sendRequest,closeModel }: ModelCardProps) =>
           </div>
 
             </div>
-
-        
-
-
-
              <button
               type="button"
               onClick={sendRequest}
@@ -210,7 +204,6 @@ const ModelCard = ({ setPostInputs, sendRequest,closeModel }: ModelCardProps) =>
             </button>
 
             </div>
-
     </div>
   )
 }

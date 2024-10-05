@@ -1,36 +1,14 @@
-import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 
 
 export const Appbar = () => {
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-
-    const location= useLocation();
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
-        setDropdownVisible(!dropdownVisible);
+        setIsDropdownOpen((prev)=>!prev);
     };
-
- 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-            setDropdownVisible(false);
-        }
-    };
-
-    useEffect(() => {
-        if (dropdownVisible) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [dropdownVisible]);
 
     return (
      
@@ -58,42 +36,53 @@ export const Appbar = () => {
                     <Avatar size={"big"} name={"M"} />
                 </button>
 
-                {dropdownVisible && <Dropdown dropdownRef={dropdownRef} />}
+                {isDropdownOpen && <Dropdown/>}
             </div>
         </div>
         
     );
 };
 
-const Dropdown = ({ dropdownRef }: { dropdownRef: React.RefObject<HTMLDivElement> }) => {
+
+const Dropdown = () => {
+    const nevigate = useNavigate();
+
+    const SignOut= ()=>{
+    
+        localStorage.removeItem("token");
+        nevigate("/signin");
+    }
+
     return (
         <div
-            ref={dropdownRef}
-            id="dropdownNavbar"
-            className="absolute right-0 top-14 z-20 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+            
+            className="absolute right-0 top-14 z-20 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-48"
         >
-            <div className="py-2 text-sm text-gray-700 dark:text-gray-200">
+            <div className="py-3 text-sm text-gray-700 ">
                 <div>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <div className="block px-4 py-2 hover:bg-gray-100">
                         Dashboard
-                    </a>
+                    </div>
                 </div>
                 <div>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <div className="block px-4 py-2 hover:bg-gray-100">
                         Settings
-                    </a>
+                        </div>
                 </div>
                 <div>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <div className="block px-4 py-2 hover:bg-gray-100">
                         Profile
-                    </a>
+                        </div>
                 </div>
             </div>
             <div className="py-1">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                <button onClick={SignOut} className="block px-4 py-2 font-semibold text-sm text-gray-900 hover:bg-gray-100 w-full">
                     Sign out
-                </a>
+                    </button>
             </div>
         </div>
     );
 };
+
+
+

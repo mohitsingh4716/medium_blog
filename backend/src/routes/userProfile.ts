@@ -86,12 +86,20 @@ userInfo.get('/', async (c) => {
         where: {
           authorId: response.id,
         },
-        select: {
-          id: true,
-          title: true,
-          content: true,
-          createdAt: true,
-        },
+        select:{   
+            id:true,
+            title:true,
+            content:true,
+            createdAt: true,
+          
+            author:{
+                select:{
+                    name:true,
+                    description:true,
+                }
+            }
+
+        }
       });
   
       return c.json({ posts });

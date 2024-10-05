@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
     content: string;
     publishedDate:string
  }
-
+ 
  export const BlogCard = ({
     id,
     authorName,
