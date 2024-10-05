@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { BlogCard } from "../components/BlogCard";
 import { useUserPost } from "../hooks/useUserPost";
 import { BlogLoading } from "../Loadings/BlogLoading";
+import { Appbar } from "../components/Appbar";
 
 
 export const UserPost= ()=>{
@@ -15,6 +16,7 @@ export const UserPost= ()=>{
     }
 
     return <div>
+         <Appbar/>
         <div className="flex justify-center">
             <div className=" max-w-xl mt-16">
                

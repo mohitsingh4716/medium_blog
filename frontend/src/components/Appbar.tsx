@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
+import { useUserProfile } from "../hooks/useUserProfile";
 
 
 export const Appbar = () => {
@@ -9,6 +10,9 @@ export const Appbar = () => {
     const toggleDropdown = () => {
         setIsDropdownOpen((prev)=>!prev);
     };
+
+    const {userInfo}= useUserProfile();
+
 
     return (
      
@@ -33,7 +37,7 @@ export const Appbar = () => {
                
 
                 <button onClick={toggleDropdown} className="focus:outline-none">
-                    <Avatar size={"big"} name={"M"} />
+                   {<Avatar size={"big"} name={userInfo?.name || "M"} />}
                 </button>
 
                 {isDropdownOpen && <Dropdown/>}
@@ -70,9 +74,11 @@ const Dropdown = () => {
                         </div>
                 </div>
                 <div>
+                    <Link to={"/userblogs"}>
                     <div className="block px-4 py-2 hover:bg-gray-100">
                         Profile
                         </div>
+                    </Link>
                 </div>
             </div>
             <div className="py-1">

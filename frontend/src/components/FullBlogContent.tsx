@@ -2,8 +2,32 @@ import { Appbar } from "./Appbar";
 import { Blog } from "../hooks/useBlogs";
 import { Avatar } from "./BlogCard";
 import { format } from "date-fns";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 export const FullBlogContent = ({ blog }: { blog: Blog }) => {
+  const nevigate= useNavigate();
+
+  const { id } = useParams();
+  const handleDelete = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault(); 
+      e.stopPropagation();
+      // console.log("Delete button clicked");
+       
+     try{await axios.delete(`${BACKEND_URL}/api/v1/blog/deleteblog/${id}`,{
+          headers:{
+              Authorization:localStorage.getItem("token")
+          }
+      })
+      // console.log(response);
+      nevigate(-1);
+    }catch(error){
+      console.error("Failed to delete post", error);
+    }
+
+  }
+    
   return (
     <div>
       <Appbar />
@@ -16,6 +40,15 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
                <div className="text-slate-500 pt-4">{format(new Date(blog.createdAt), 'do MMM yyyy')}</div>
                 <div className="pt-2 text-justify mr-4 " dangerouslySetInnerHTML={{ __html: blog.content }}>
                 
+                </div>
+
+                <div className="pt-4">
+                    <button
+                        onClick={handleDelete}
+                        className="text-red-600"
+                    >
+                        Delete
+                    </button>
                 </div>
             </div>
 

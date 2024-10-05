@@ -1,5 +1,7 @@
+
 import parse from 'html-react-parser';
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
  export interface BlogCardProps{
     id:string;
@@ -9,7 +11,7 @@ import { Link } from "react-router-dom";
     content: string;
     publishedDate:string
  }
- 
+
  export const BlogCard = ({
     id,
     authorName,
@@ -17,7 +19,11 @@ import { Link } from "react-router-dom";
     content,
     publishedDate
  }:BlogCardProps) => {
+
+   
+
    return ( 
+ 
         <Link to={`/blog/${id}`}>
             <div className="p-4 border-b border-slate-200 pb-4">
                 <div className="flex">
@@ -43,8 +49,10 @@ import { Link } from "react-router-dom";
 
             </div>
          </Link>
-   )
- }
+               
+         
+   )};
+
 
  const stripHtmlTags = (html: string) => {
     const div = document.createElement("div");
