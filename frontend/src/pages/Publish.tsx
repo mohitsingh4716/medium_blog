@@ -34,20 +34,20 @@ export const Publish = () => {
                 }}/>
 
 
-                <button onClick={async()=>{
-               const response=await axios.post(`${BACKEND_URL}/api/v1/blog`,{
-                    title,
-                    content
-                },{
-                    headers:{
-                        Authorization: localStorage.getItem("token")
-                    }
-                });
-                navigate(`/blog/${response.data.id}`)
+                    <button onClick={async()=>{
+                  const response=await axios.post(`${BACKEND_URL}/api/v1/blog`,{
+                        title,
+                        content
+                    },{
+                        headers:{
+                            Authorization: localStorage.getItem("token")
+                        }
+                    });
+                    navigate(`/blog/${response.data.id}`)
 
-            }} type="submit" className="inline-flex items-center mt-16 py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                Publish
-            </button>
+                }} type="submit" className="inline-flex items-center mt-16 py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    Publish
+                </button>
             </div>
         
         </div>

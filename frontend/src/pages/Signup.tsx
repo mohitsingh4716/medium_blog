@@ -1,6 +1,6 @@
 
 import { AuthSignup } from '../components/AuthSignup'
-import { Quote } from '../components/Quote'
+import { Quota } from '../components/Quote'
 
 
 export const Signup = () => {
@@ -12,7 +12,7 @@ export const Signup = () => {
         </div>
 
         <div className='hidden lg:block'>
-            <Quote />
+            <Quota />
         </div>
         
       </div>

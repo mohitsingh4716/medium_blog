@@ -1,6 +1,6 @@
 
 import { AuthSignin } from '../components/AuthSignin'
-import { Quote } from '../components/Quote'
+import { Quota } from '../components/Quote'
 
 export const Signin = () => {
   return (
@@ -8,10 +8,12 @@ export const Signin = () => {
     <div className='grid grid-cols-1 lg:grid-cols-2'>
        <div>
           <AuthSignin/>
+         
       </div>
+   
       
       <div className="hidden lg:block">
-          <Quote />
+          <Quota />
       </div>
       
     </div>

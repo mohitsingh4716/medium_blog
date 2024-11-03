@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { Trash2 } from 'lucide-react';
 
 export const FullBlogContent = ({ blog }: { blog: Blog }) => {
   const nevigate= useNavigate();
@@ -37,19 +38,21 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
                 <div className=" text-5xl font-extrabold">
                     {blog.title}
                 </div>
-               <div className="text-slate-500 pt-4">{format(new Date(blog.createdAt), 'do MMM yyyy')}</div>
+               <div className="text-slate-500 pt-4 flex justify-between">{format(new Date(blog.createdAt), 'do MMM yyyy')}
+                    <div className="pt-1 pr-5">
+                          <button
+                              onClick={handleDelete}
+                              className="text-black px-5 "
+                          >
+                              <Trash2 size={24} />
+                          </button>
+                      </div>
+               </div>
                 <div className="pt-2 text-justify mr-4 " dangerouslySetInnerHTML={{ __html: blog.content }}>
                 
                 </div>
 
-                <div className="pt-4">
-                    <button
-                        onClick={handleDelete}
-                        className="text-red-600"
-                    >
-                        Delete
-                    </button>
-                </div>
+               
             </div>
 
             <div className=" col-span-4 px-10">

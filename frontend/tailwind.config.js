@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
@@ -8,6 +9,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        baskervvilleRegular: ['"Baskervville"', 'serif'],
+        baskervvilleItalic: ['"Baskervville"', 'serif'],
+        AlluraRegular: ["Allura", 'serif']
+      },
       typography: ({ theme }) => ({
         orange: {
           css: {

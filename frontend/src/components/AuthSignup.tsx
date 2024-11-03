@@ -48,11 +48,11 @@ export const AuthSignup = () => {
 
       <div className="flex justify-center">
         <div>
-          <div className="px-10">
-            <div className="text-3xl font-extrabold">
+          <div className="px-6">
+            <div className="text-4xl font-extrabold">
               <div>Create an account</div>
             </div>
-            <div className="text-slate-400">
+            <div className="text-slate-400 ml-6">
              Already have account?
               <Link className="pl-2 underline" to={ "/signin"}>
                 Sign in
