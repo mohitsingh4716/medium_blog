@@ -39,7 +39,7 @@ export const AuthSignin = () => {
             <div className="text-4xl font-extrabold">
               <div>Welcome back</div>
             </div>
-            <div className="text-slate-400">
+            <div className="text-slate-400 ml-2">
              { "Don't have an account"}
               <Link className="pl-2 underline" to={"/signup" }>
                 {"Sign up"}

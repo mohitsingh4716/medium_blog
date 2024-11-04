@@ -20,41 +20,36 @@ import { Link} from "react-router-dom";
     publishedDate
  }:BlogCardProps) => {
 
-   
+    const plainTextContent = stripHtmlTags(content);
+    const readingTime = Math.ceil(plainTextContent.split(" ").length / 200);
 
-   return ( 
- 
+    return (
         <Link to={`/blog/${id}`}>
-            <div className="p-4 border-b border-slate-200 pb-4">
-                <div className="flex">
-                <div className="flex justify-center flex-col">
+          <div className="p-4 border-b border-slate-200 pb-4">
+            <div className="flex">
+              <div className="flex justify-center flex-col">
                 <Avatar name={authorName} size={"small"} />
-                </div>
-                <div className="pt-1 font-extralight pl-2 text-sm">
-                {authorName}
-                    </div>
-                    <div className="pt-1 pl-2 font-extralight text-slate-500 text-sm">{publishedDate}</div>
-                </div>
-            
-                <div className="text-xl font-semibold mt-3">
-                    {title}
-                </div>
-                <div className="text-md font-thin" >
-                    {/* {content.slice(0, 100) + "...."} */}
-                    {parse(stripHtmlTags(content).slice(0, 200) + "....")}
-                </div>
-                <div className=" text-slate-500 text-sm font-thin" >
-                    {`${Math.ceil(content.length /100)} minute(s) read`}
-                </div>
-
+              </div>
+              <div className="pt-1 font-extralight pl-2 text-sm">{authorName}</div>
+              <div className="pt-1 pl-2 font-extralight text-slate-500 text-sm">
+                {publishedDate}
+              </div>
             </div>
-         </Link>
-               
-         
-   )};
+    
+            <div className="text-xl font-semibold mt-3">{title}</div>
+            <div className="text-md font-thin">
+              {parse(plainTextContent.slice(0, 200) + "....")}
+            </div>
+            <div className="text-slate-500 text-sm font-thin">
+              {`${readingTime} minute(s) read`}
+            </div>
+          </div>
+        </Link>
+      );
+    };
 
 
- const stripHtmlTags = (html: string) => {
+   const stripHtmlTags = (html: string) => {
     const div = document.createElement("div");
     div.innerHTML = html;
     return div.textContent || div.innerText || "";
