@@ -1,5 +1,6 @@
 
 import parse from 'html-react-parser';
+import { Sparkle, ThumbsUp } from 'lucide-react';
 import { Link} from "react-router-dom";
 
 
@@ -47,8 +48,12 @@ import { Link} from "react-router-dom";
                 {parse(plainTextContent.slice(0, 200) + "....")}
                 </div>
                 
-                <div className="text-slate-500 text-sm font-thin">
-                   {`${readingTime} minute(s) read`}
+                <div className="text-slate-500 text-sm font-thin flex">
+                  <div className='mr-2 pt-0.5 hover:text-gray-700'>
+                    <Sparkle size={16} />
+                  </div>
+                   {`${readingTime} min read`}
+                   
                 </div>
           </div>
         </Link>
