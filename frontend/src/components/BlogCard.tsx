@@ -21,28 +21,35 @@ import { Link} from "react-router-dom";
  }:BlogCardProps) => {
 
     const plainTextContent = stripHtmlTags(content);
-    const readingTime = Math.ceil(plainTextContent.split(" ").length / 200);
+    // console.log(plainTextContent);
+    const readingTime = Math.ceil(plainTextContent.length / 100);
+    const shortTitle = title.length > 70 ? title.slice(0, 70) + "..." : title;
 
     return (
         <Link to={`/blog/${id}`}>
-          <div className="p-4 border-b border-slate-200 pb-4">
-            <div className="flex">
-              <div className="flex justify-center flex-col">
-                <Avatar name={authorName} size={"small"} />
-              </div>
-              <div className="pt-1 font-extralight pl-2 text-sm">{authorName}</div>
-              <div className="pt-1 pl-2 font-extralight text-slate-500 text-sm">
-                {publishedDate}
-              </div>
-            </div>
-    
-            <div className="text-xl font-semibold mt-3">{title}</div>
-            <div className="text-md font-thin">
-              {parse(plainTextContent.slice(0, 200) + "....")}
-            </div>
-            <div className="text-slate-500 text-sm font-thin">
-              {`${readingTime} minute(s) read`}
-            </div>
+          <div className="p-4 border-b border-slate-200 pb-4 w-80 lg:w-full">
+                <div className="flex">
+                    <div className="flex justify-center flex-col">
+                        <Avatar name={authorName} size={"small"} />
+                    </div>
+
+                    <div className="pt-1 font-medium text-slate-700 pl-2 text-sm">{authorName}</div>
+
+                    <div className="pt-1 pl-2 font-extralight text-slate-500 text-sm">
+                        {publishedDate}
+                    </div>
+                
+                </div>
+        
+                <div className="text-xl font-semibold mt-3">{shortTitle}</div>
+
+                <div className="text-md font-thin overflow-hidden">
+                {parse(plainTextContent.slice(0, 200) + "....")}
+                </div>
+                
+                <div className="text-slate-500 text-sm font-thin">
+                   {`${readingTime} minute(s) read`}
+                </div>
           </div>
         </Link>
       );

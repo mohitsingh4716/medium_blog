@@ -33,9 +33,9 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
     <div>
       <Appbar />
       <div className="flex justify-ceter pt-14 ">
-        <div className="grid grid-cols-12  px-10 w-full pt-12  max-w-screen-2xl ">
-          <div className="col-span-8 border-r">
-                <div className=" text-5xl font-extrabold">
+        <div className="lg:grid lg:grid-cols-12  px-10 w-full pt-12  max-w-screen-2xl ">
+          <div className="col-span-10 lg:col-span-8 lg:border-r">
+                <div className=" text-5xl font-extrabold overflow-hidden">
                     {blog.title}
                 </div>
                <div className="text-slate-500 pt-4 flex justify-between">{format(new Date(blog.createdAt), 'do MMM yyyy')}
@@ -48,14 +48,14 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
                           </button>
                       </div>
                </div>
-                <div className="pt-2 text-justify mr-4 " dangerouslySetInnerHTML={{ __html: blog.content }}>
+                <div className="pt-2 text-justify overflow-hidden mr-4 " dangerouslySetInnerHTML={{ __html: blog.content }}>
                 
                 </div>
 
                
             </div>
 
-            <div className=" col-span-4 px-10">
+            <div className="hidden  lg:block lg:col-span-4 px-10">
                <div className="text-slate-500">
                   Author
                </div>

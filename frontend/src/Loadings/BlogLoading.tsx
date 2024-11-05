@@ -11,7 +11,7 @@ const Loading = () => {
             <div className="bg-gray-200 ml-2 p-1 h-3 w-1/3 rounded mt-2"></div>
           </div>
 
-          <div className=" flex flex-col w-[500px] space-y-2">
+          <div className=" flex flex-col w-80 lg:w-[500px] space-y-2">
             <div className="bg-gray-200 h-2  rounded mt-3"></div>
             <div className="bg-gray-200 h-2 rounded mt-2"></div>
             <div className="bg-gray-200 h-2 rounded mt-2"></div>

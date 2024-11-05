@@ -20,27 +20,27 @@ export const Appbar = () => {
 
     return (
      
-        <div className=" fixed z-50 shadow-whit bg-[#ffff] border-b flex justify-between px-8 py-2 h-auto w-full " onClick={()=>{
+        <div className="fixed z-50 lg:fixed  shadow-white bg-[#ffff] border-b flex justify-between lg:px-8 px-3   lg:py-2 py-1 h-16 lg:w-full w-96  " onClick={()=>{
             if(isDropdownOpen){
                 setIsDropdownOpen(false);
             }
         }}>
 
             <Link to={"/blogs"}>
-                <div className="flex justify-center ">
+                <div className="flex lg:justify-center">
                    
-                    <img className="w-12" src={newlogo} alt="Medium" />
-                    <img className="p-1" src={logo} alt="Medium" />
+                    <img className="w-9" src={newlogo} alt="Medium" />
+                    <img className="p-1 w-36" src={logo} alt="Medium" />
                     {/* <div className="mt-2  text-3xl font-bold" > Medium</div> */}
                 </div>
             </Link>
 
             <div className="flex relative">
-                {location.pathname !== "/publish" && (
+                {(location.pathname !== "/publish") && (
                     <Link to={`/publish`}>
                         <button
                             type="button"
-                            className="mr-8 text-black border border-black font-semibold hover:bg-gray-600 hover:text-white  focus:outline-none focus:ring-4 rounded-full text-sm px-7 py-2.5 text-center me-2 mb-2"
+                            className="mx-4 my-2 lg:-my-0.5 lg:mr-8 text-black border border-black font-semibold hover:bg-gray-600 hover:text-white  focus:outline-none focus:ring-4 rounded-full lg:text-sm text-xs lg:px-7 lg:py-2.5 px-2 py-2 text-center me-2 mb-2"
                         >
                             Create new Blog
                         </button>

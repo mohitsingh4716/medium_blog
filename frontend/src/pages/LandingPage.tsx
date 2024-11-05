@@ -24,10 +24,10 @@ export const LandingPage = () => {
 
         
             <div className='m-4 flex-col  items-center relative'>
-                <div className=" font-AlluraRegular leading-[90px] text-black text-[110px] md:text-[120px] lg:text-[170px] lg:leading-[150px] font-extrabold  px-4">
+                <div className="lg:mt-1 mt-10 font-AlluraRegular leading-[90px] text-black text-[110px] md:text-[120px] lg:text-[170px] lg:leading-[150px] font-extrabold  px-4">
                 Connect with the Modern World
                 </div>
-                <div className='p-4 text-black justify-center md:justify-center  items-center font-baskervvilleRegular text-4xl font-extrabold'>
+                <div className='p-4 text-black justify-center md:justify-center  items-center font-baskervvilleRegular lg:text-4xl text-3xl font-extrabold'>
                 Insights, stories, and ideas for everyone
                 </div>
                  
@@ -48,7 +48,7 @@ export const LandingPage = () => {
        
       
         <div className="flex justify-center flex-row gap-4 text-black">
-              <div className='mr-4 cursor-pointer hover:text-gray-900'>copyright  &copy; {new Date().getFullYear()}</div>
+              <div className='hidden lg:flex mr-4 cursor-pointer hover:text-gray-900'>copyright  &copy; {new Date().getFullYear()}</div>
 
               <div className="hover:text-gray-500 cursor-pointer">Status</div>
               <div className="hover:text-gray-500 cursor-pointer">About</div>
@@ -70,8 +70,8 @@ const Header = () => {
             
                 <div className="flex justify-center ">
                    
-                    <img className="w-14" src={newlogo} alt="Medium" />
-                    <img className="p-1" src={logo} alt="Medium" />
+                    <img className="w-9" src={newlogo} alt="Medium" />
+                    <img className="p-1 w-36" src={logo} alt="Medium" />
                     {/* <div className="mt-2  text-3xl font-bold" > Medium</div> */}
                 </div>
            
@@ -80,7 +80,7 @@ const Header = () => {
                 <Link to={"/signin"}>
                     <button
                         type="button"
-                        className="mr-8 text-black  border border-gray-800  font-semibold focus:outline-none hover:bg-gray-200 focus:ring-4 rounded-xl text-sm px-7 py-2.5 text-center me-2 mb-2"
+                        className="sm:flex md:inline-block mr-8 text-black  border border-gray-800  font-semibold focus:outline-none hover:bg-gray-200 focus:ring-4 rounded-xl text-sm lg:px-7 lg:py-2.5 px-4 py-2 text-center me-2 mb-2"
                     >
                         Sign In
                     </button>
