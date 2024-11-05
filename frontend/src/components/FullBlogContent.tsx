@@ -1,7 +1,7 @@
 import { Appbar } from "./Appbar";
 import { Blog } from "../hooks/useBlogs";
 import { Avatar } from "./BlogCard";
-import { format } from "date-fns";
+import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -32,13 +32,13 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
   return (
     <div>
       <Appbar />
-      <div className="flex justify-ceter pt-14 ">
-        <div className="lg:grid lg:grid-cols-12  px-10 w-full pt-12  max-w-screen-2xl ">
+      <div className="flex justify-ceter pt-20 ">
+        <div className="lg:grid lg:grid-cols-12  px-10 w-full   max-w-screen-2xl ">
           <div className="col-span-10 lg:col-span-8 lg:border-r">
                 <div className=" text-5xl font-extrabold overflow-hidden">
                     {blog.title}
                 </div>
-               <div className="text-slate-500 pt-4 flex justify-between">{format(new Date(blog.createdAt), 'do MMM yyyy')}
+               <div className="text-slate-500 pt-4 flex justify-between">{moment(blog.createdAt).format('dddd, Do MMMM, YYYY')}
                     <div className="pt-1 pr-5">
                           <button
                               onClick={handleDelete}

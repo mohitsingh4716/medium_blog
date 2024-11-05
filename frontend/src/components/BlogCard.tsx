@@ -1,6 +1,6 @@
 
 import parse from 'html-react-parser';
-import { Sparkle, ThumbsUp } from 'lucide-react';
+import { Sparkle } from 'lucide-react';
 import { Link} from "react-router-dom";
 
 

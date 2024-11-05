@@ -1,9 +1,9 @@
 
+import moment from "moment";
 import { Appbar } from "../components/Appbar"
 import { BlogCard } from "../components/BlogCard"
 import { useBlogs } from "../hooks/useBlogs"
 import { BlogLoading } from "../Loadings/BlogLoading";
-import { format } from 'date-fns';
 
 
 
@@ -32,7 +32,7 @@ export const Blog = () => {
             authorName={blog.author.name || "Anonymous"}
             title={blog.title}
             content={blog.content}
-            publishedDate={format(new Date(blog.createdAt), 'do MMM yyyy')} 
+            publishedDate={moment(blog.createdAt).format('dddd, Do MMMM, YYYY')}
             description={blog.author.description}   
                      />)}
             
