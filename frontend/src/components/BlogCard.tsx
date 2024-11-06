@@ -34,15 +34,15 @@ import { Link} from "react-router-dom";
                         <Avatar name={authorName} size={"small"} />
                     </div>
 
-                    <div className="pt-1 font-medium text-slate-700 pl-2 text-sm">{authorName}</div>
+                    <div className="pt-1 font-medium text-slate-700 hover:text-slate-900 pl-2 text-sm">{authorName}</div>
 
-                    <div className="pt-1 pl-2 font-extralight text-slate-500 text-sm">
+                    <div className="pt-1 pl-2 font-extralight text-slate-500 hover:text-slate-800 text-sm">
                         {publishedDate}
                     </div>
                 
                 </div>
         
-                <div className="text-xl font-semibold mt-3">{shortTitle}</div>
+                <div className="text-xl font-semibold mt-1">{shortTitle}</div>
 
                 <div className="text-md font-thin overflow-hidden">
                 {parse(plainTextContent.slice(0, 200) + "....")}

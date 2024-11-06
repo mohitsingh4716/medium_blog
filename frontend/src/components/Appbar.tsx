@@ -40,7 +40,7 @@ export const Appbar = () => {
                     <Link to={`/publish`}>
                         <button
                             type="button"
-                            className="mx-4 my-2 lg:-my-0.5 lg:mr-8 text-black border border-black font-semibold hover:bg-gray-600 hover:text-white  focus:outline-none focus:ring-4 rounded-full lg:text-sm text-xs lg:px-7 lg:py-2.5 px-2 py-2 text-center me-2 mb-2"
+                            className="mx-4 my-2 lg:-my-0.5 lg:mr-8 text-black border border-black font-semibold hover:bg-gray-600 hover:text-white  focus:outline-none focus:ring-4 rounded-full lg:text-sm text-xs lg:px-7 lg:py-2.5 px-2 py- text-center me-2 mb-2"
                         >
                             Create new Blog
                         </button>
@@ -48,7 +48,7 @@ export const Appbar = () => {
                 )}
                
 
-                <button onClick={()=>{ setIsDropdownOpen((prev)=>!prev)}} className="focus:outline-none -mt-2">
+                <button onClick={()=>{ setIsDropdownOpen((prev)=>!prev)}} className="focus:outline-none -mt-2 mr-3">
                    {<Avatar size={"big"} name={userInfo?.name || "M"} />}
                 </button>
 

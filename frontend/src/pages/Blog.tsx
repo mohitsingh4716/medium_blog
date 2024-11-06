@@ -32,7 +32,7 @@ export const Blog = () => {
             authorName={blog.author.name || "Anonymous"}
             title={blog.title}
             content={blog.content}
-            publishedDate={moment(blog.createdAt).format('dddd, Do MMMM, YYYY')}
+            publishedDate={moment(blog.createdAt).format('dddd, Do MMM, YYYY')}
             description={blog.author.description}   
                      />)}
             
