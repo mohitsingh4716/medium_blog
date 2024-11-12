@@ -3,6 +3,7 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
+import { toast } from "sonner";
 
 export const AuthSignin = () => {
   const navigate= useNavigate();
@@ -14,17 +15,32 @@ export const AuthSignin = () => {
   });
 
   const sendRequest= async()=>{
+    if(!postInputs.email || !postInputs.password){
+      toast.warning("Please fill all fields");
+      return;
+    }
+
+    const loadingToast = toast.loading("Signing in...");
+
     try{
       const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, postInputs);
       const jwt= response.data.jwt;
       // console.log(jwt);
-      
 
       localStorage.setItem("token",jwt);
+
+      toast.dismiss(loadingToast);
+      toast.success("Signed in successfully");
       navigate("/blogs");
-    }catch(e){
-      alert("Error while signing up")
-      // alert the user here that the request failed
+    }catch(e:any){
+      toast.dismiss(loadingToast);
+       if (e.response.data.error) {
+        toast.warning(e.response.data.error);
+      } else {
+        console.error("An error occurred:", e);
+        toast.error("Incorrect email or password. Please try again.");
+      }
+ 
     }
      
   }

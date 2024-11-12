@@ -4,6 +4,7 @@ import { BACKEND_URL } from "../config"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import '../index.css';
+import { toast } from "sonner";
 
 
 import ReactQuill from 'react-quill';
@@ -53,7 +54,10 @@ export const PublishButton = ({ title, content }: PublishButtonProps) => {
   const navigate = useNavigate();
 
   const handlePublish = async () => {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
+    const loadtoast= toast.loading("Publishing your blog...");
+
+      try{
+        const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
           title,
           content
       }, {
@@ -61,7 +65,19 @@ export const PublishButton = ({ title, content }: PublishButtonProps) => {
               Authorization: localStorage.getItem("token")
           }
       });
+      toast.dismiss(loadtoast);
+      toast.success("Blog published successfully!");
       navigate(`/blog/${response.data.id}`);
+      }catch(e:any){
+        toast.dismiss(loadtoast);
+        if (e.response.data.error) {
+          toast.warning(e.response.data.error);
+        } else {
+          console.error("An error occurred:", e);
+          toast.error("An error occurred. Please try again later");
+      }
+    }
+      
   };
 
   return (
@@ -79,7 +95,7 @@ function TextEditor({onChange}:{onChange: (value: string) => void}) {
   
 
   return(
-    <div className="mt-4 lg:mt-8 mx-auto " >
+    <div className="mt-4 lg:mt-8 w-96 lg:w-full " >
     <ReactQuill
       theme="snow"
       onChange={onChange}

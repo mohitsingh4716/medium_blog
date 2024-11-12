@@ -6,7 +6,7 @@ import { BlogContent } from './pages/BlogContent'
 import { LandingPage } from './pages/LandingPage'
 import { Publish } from './pages/Publish'
 import { UserPost } from './pages/UserBlogs'
-
+import { Toaster } from 'sonner'
 
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Toaster richColors  />
         <Routes>
         <Route path="/" element={<LandingPage/>} />
           <Route path="/signup" element={<Signup />} />

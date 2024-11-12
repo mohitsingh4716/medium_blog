@@ -4,6 +4,7 @@ import { Avatar } from "./BlogCard";
 import { useUserProfile } from "../hooks/useUserProfile";
 import newlogo from "../assets/newLogo.svg";
 import logo from "../assets/logo.svg";
+import {toast} from "sonner";
 
 import { LayoutDashboard, LogOut, UserCog, UserPen } from "lucide-react";
 
@@ -62,12 +63,19 @@ export const Appbar = () => {
 
 
 const Dropdown = () => {
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
 
-    const SignOut= ()=>{
+    const SignOut= async()=>{
+        try{
+            localStorage.removeItem("token");
     
-        localStorage.removeItem("token");
-        nevigate("/");
+            toast.success("Signed out successfully");
+            navigate("/");
+        }catch(e){
+            toast.dismiss();
+            toast.error("Something went_wrong");
+        }
+        
     }
 
     return (

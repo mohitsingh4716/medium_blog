@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { Trash2 } from 'lucide-react';
+import { toast } from "sonner";
 
 export const FullBlogContent = ({ blog }: { blog: Blog }) => {
   const nevigate= useNavigate();
@@ -15,16 +16,22 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
       e.preventDefault(); 
       e.stopPropagation();
       // console.log("Delete button clicked");
+      const loadtoast= toast.loading("Deleting your blog...");
+    
        
      try{await axios.delete(`${BACKEND_URL}/api/v1/blog/deleteblog/${id}`,{
           headers:{
               Authorization:localStorage.getItem("token")
           }
       })
+      toast.dismiss(loadtoast);
+      toast.success("Blog deleted successfully!");
       // console.log(response);
       nevigate(-1);
     }catch(error){
       console.error("Failed to delete post", error);
+      toast.dismiss(loadtoast);
+      toast.error("Failed to delete post");
     }
 
   }
