@@ -19,6 +19,7 @@ export const Appbar = () => {
     const {userInfo}= useUserProfile();
 
 
+
     return (
      
         <div className="fixed z-50 lg:fixed  shadow-white bg-[#ffff] border-b flex justify-between lg:px-8 px-3   lg:py-2 py-1 h-16 lg:w-full w-96  " onClick={()=>{
@@ -50,7 +51,7 @@ export const Appbar = () => {
                
 
                 <button onClick={()=>{ setIsDropdownOpen((prev)=>!prev)}} className="focus:outline-none -mt-2 mr-3">
-                   {<Avatar size={"big"} name={userInfo?.name || "M"} />}
+                   {<Avatar size={"big"} name={userInfo?.name || ""} />}
                 </button>
 
                 
@@ -68,6 +69,7 @@ const Dropdown = () => {
     const SignOut= async()=>{
         try{
             localStorage.removeItem("token");
+            localStorage.removeItem("userProfile");
     
             toast.success("Signed out successfully");
             navigate("/");

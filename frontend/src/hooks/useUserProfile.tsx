@@ -15,15 +15,32 @@ export const useUserProfile = () => {
     const [userInfo, setUserInfo]= useState<userProfile>();
 
     useEffect(()=>{
-        axios.get(`${BACKEND_URL}/api/v1/userInfo`,{
-            headers:{
-                Authorization:localStorage.getItem("token")
-            }
-        })
-            .then(response =>{
-                setUserInfo(response.data.user);
+        const localUserData= async()=>{
+            const localData =localStorage.getItem("userProfile");
+            if(localData){
+                setUserInfo(JSON.parse(localData));
                 setLoading(false);
-            })
+            }else{
+                try{
+                    const response = await axios.get(`${BACKEND_URL}/api/v1/userInfo`,{
+                        headers:{
+                            Authorization:localStorage.getItem("token")
+                        }
+                    })
+                    setUserInfo(response.data.user);
+                   
+                    localStorage.setItem("userProfile",JSON.stringify(response.data.user));
+                    setLoading(false);
+                }
+                catch(error){
+                    console.log(error);
+                    setLoading(false);
+                }
+            }
+        }
+        
+
+        localUserData();
     }, [])
 
   return {

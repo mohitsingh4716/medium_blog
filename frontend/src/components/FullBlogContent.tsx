@@ -28,10 +28,15 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
       toast.success("Blog deleted successfully!");
       // console.log(response);
       nevigate(-1);
-    }catch(error){
+    }catch (error: any) {
       console.error("Failed to delete post", error);
       toast.dismiss(loadtoast);
-      toast.error("Failed to delete post");
+    
+      if (error.response && error.response.status === 400) {
+        toast.error("You cannot delete this post. Only the original poster can perform this action.");
+      } else {
+        toast.error("Failed to delete post. Please try again later.");
+      }
     }
 
   }
