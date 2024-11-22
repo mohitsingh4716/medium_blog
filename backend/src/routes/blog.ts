@@ -64,6 +64,7 @@ blogRouter.post("/", async(c) => {
             title: body.title,
             content: body.content,
             authorId:userId,
+            image: body.firstImgUrl,
         }
       })
     return c.json({
@@ -72,40 +73,40 @@ blogRouter.post("/", async(c) => {
      });
 });
 
-blogRouter.put("/", async(c) => {
+// blogRouter.put("/", async(c) => {
      
-    const body= await c.req.json()
+//     const body= await c.req.json()
 
-    const {success}= updatePostInput.safeParse(body);
+//     const {success}= updatePostInput.safeParse(body);
 
-    if(!success){
-        c.status(411);
-        return c.json({
-            message:"Inputs not correct"
-        })
-    }
+//     if(!success){
+//         c.status(411);
+//         return c.json({
+//             message:"Inputs not correct"
+//         })
+//     }
 
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-      }).$extends(withAccelerate());
+//     const prisma = new PrismaClient({
+//         datasourceUrl: c.env.DATABASE_URL,
+//       }).$extends(withAccelerate());
 
-      const post = await prisma.post.update({
-        where:{
-            id:body.id
-        },
+//       const post = await prisma.post.update({
+//         where:{
+//             id:body.id
+//         },
 
-        data:{
-            title: body.title,
-            content: body.content,
+//         data:{
+//             title: body.title,
+//             content: body.content,
             
-        }
-      })
+//         }
+//       })
 
-    return c.json({
-    id:post.id,
+//     return c.json({
+//     id:post.id,
    
-     });
-});
+//      });
+// });
 
 blogRouter.get('/', async(c)=>{
     const body= await c.req.json();
@@ -143,6 +144,7 @@ blogRouter.get("/bulk", async(c) => {
             id:true,
             title:true,
             content:true,
+            image:true,
             createdAt: true,
           
             author:{
@@ -177,6 +179,7 @@ blogRouter.get('/:id', async (c) => {
                 id:true,
                 title: true,
                 content:true,
+                image:true,
                 createdAt: true,
                 author:{
                     select:{

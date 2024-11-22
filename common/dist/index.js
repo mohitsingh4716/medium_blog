@@ -18,8 +18,10 @@ exports.signinInput = zod_1.default.object({
 exports.createPostInput = zod_1.default.object({
     title: zod_1.default.string(),
     content: zod_1.default.string(),
+    firstImgUrl: zod_1.default.string().optional()
 });
 exports.updatePostInput = zod_1.default.object({
     title: zod_1.default.string().optional(),
     content: zod_1.default.string().optional(),
+    firstImgUrl: zod_1.default.string().optional()
 });

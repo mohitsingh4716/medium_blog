@@ -7,6 +7,7 @@ import { LandingPage } from './pages/LandingPage'
 import { Publish } from './pages/Publish'
 import { UserPost } from './pages/UserBlogs'
 import { Toaster } from 'sonner'
+import {Dashboard} from './pages/Dashboard'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/blogs" element={<Blog />} />
           <Route path="/publish" element={<Publish />} />
           <Route path='/userblogs' element={<UserPost/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
 
         </Routes>
       </BrowserRouter>

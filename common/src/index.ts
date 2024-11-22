@@ -19,6 +19,7 @@ export type SigninType = z.infer<typeof signinInput>;
 export const createPostInput = z.object({
     title: z.string(),
     content: z.string(),
+    firstImgUrl: z.string().optional()
 });
 
 export type CreatePostType = z.infer<typeof createPostInput>;
@@ -26,6 +27,7 @@ export type CreatePostType = z.infer<typeof createPostInput>;
 export const updatePostInput = z.object({
     title: z.string().optional(),
     content: z.string().optional(),
+    firstImgUrl: z.string().optional()
 });
 
 export type UpdatePostType = z.infer<typeof updatePostInput>;

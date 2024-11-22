@@ -91,6 +91,7 @@ userInfo.get('/', async (c) => {
             title:true,
             content:true,
             createdAt: true,
+            image:true,
           
             author:{
                 select:{

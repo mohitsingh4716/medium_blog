@@ -19,6 +19,8 @@ export const AuthSignup = () => {
   const handleFirstSubmit= ()=>{
     if(postInputs.email && postInputs.password){
         setModelCard(true);
+    }else{
+      toast.warning("Please fill all fields");
     }
   }
 

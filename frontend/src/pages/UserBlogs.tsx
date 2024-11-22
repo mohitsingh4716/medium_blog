@@ -27,6 +27,7 @@ export const UserPost= ()=>{
                     id={post.id}
                     title={post.title}
                     content={post.content}
+                    firstImgUrl={post.image}
                     publishedDate={format(new Date(post.createdAt), 'do MMM yyyy')} 
                     authorName={post.author.name}
                      description={post.author.description}        />)}

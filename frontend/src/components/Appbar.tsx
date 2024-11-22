@@ -87,9 +87,11 @@ const Dropdown = () => {
         >
             <div className="py-3 text-sm text-gray-700 ">
                 <div>
+                    <Link to={"/dashboard"}>
                     <div className="flex px-4 py-2 hover:bg-gray-100">
                     <LayoutDashboard className="mr-3" />  Dashboard
                     </div>
+                    </Link>
                 </div>
                 <div>
                     <div className="flex px-4 py-2 hover:bg-gray-100">
@@ -99,7 +101,7 @@ const Dropdown = () => {
                 <div>
                     <Link to={"/userblogs"}>
                     <div className="flex px-4 py-2 hover:bg-gray-100">
-                    <UserPen className="mr-3" /> Profile
+                    <UserPen className="mr-3" /> My Blogs
                         </div>
                     </Link>
                 </div>
