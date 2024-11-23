@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<PublicRoute><LandingPage/></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
           <Route path="/signin" element={<PublicRoute><Signin /></PublicRoute>} />
-          <Route path="/blog/:id" element={<PublicRoute><BlogContent /></PublicRoute>} />
+          <Route path="/blog/:id" element={<BlogContent />} />
 
           <Route path="/blogs" element={ <ProtectedRoute><Blog /></ProtectedRoute>} />
           <Route path="/publish" element={<ProtectedRoute><Publish /></ProtectedRoute>} />
