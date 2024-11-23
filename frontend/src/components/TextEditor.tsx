@@ -63,6 +63,7 @@ export const TextEditor=({value,onChange}:{value:string, onChange: (value: strin
                 [{ 'align': [] }],
                 ['bold', 'italic', 'underline'], 
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }], 
+                ['blockquote', 'code-block'],
                 ['link', 'image'], 
                 ['clean'] 
             ],
@@ -77,6 +78,7 @@ export const TextEditor=({value,onChange}:{value:string, onChange: (value: strin
         'header', 'font', 'size', 'align',
         'bold', 'italic', 'underline', 
          'background', 'list', 'bullet',
+         'blockquote', 'code-block',
         'link', 'image'
       ];
 

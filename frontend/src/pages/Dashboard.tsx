@@ -5,7 +5,6 @@ import { useUserProfile } from "../hooks/useUserProfile";
 
 export const Dashboard = () => {
     const { loading, userInfo } = useUserProfile();
-    console.log(userInfo);
     
 
 

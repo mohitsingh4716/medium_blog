@@ -1,5 +1,6 @@
 import parse from "html-react-parser";
 import { Sparkle } from "lucide-react";
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 export interface BlogCardProps {
@@ -40,7 +41,7 @@ export const BlogCard = ({
           </div>
 
           <div className="pt-1 pl-2 font-extralight text-slate-500 hover:text-slate-800 text-sm">
-            {publishedDate}
+            {getTimeDifference(publishedDate)}
           </div>
         </div>
 
@@ -98,3 +99,22 @@ export function Avatar({
     </div>
   );
 }
+
+const getTimeDifference = (createdAt: moment.MomentInput) => {
+  const currentTime = new Date();
+  const uploadTime = moment(createdAt).toDate();
+  const diffInMs = currentTime.getTime() - uploadTime.getTime(); 
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+
+  if (diffInMinutes < 1) {
+    return `${diffInSeconds} sec ago`;
+  } else if (diffInMinutes < 60) {
+    return `${diffInMinutes} min ago`;
+  } else if (diffInHours < 24) {
+    return `${diffInHours} hr ago`;
+  } else {
+    return moment(createdAt).format('dddd, Do MMM, YYYY'); 
+  }
+};

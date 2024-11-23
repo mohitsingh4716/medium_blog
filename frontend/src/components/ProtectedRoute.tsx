@@ -11,6 +11,9 @@ const isAuthenticated = (): boolean => {
 interface ProtectedRouteProps {
   children: JSX.Element;
 }
+interface PublicRouteProps {
+    children: JSX.Element; 
+}
 
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
@@ -18,3 +21,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 };
 
 
+export const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
+    return isAuthenticated() ? <Navigate to="/blogs" replace /> : children;
+  };

@@ -8,7 +8,7 @@ import { Publish } from './pages/Publish'
 import { UserPost } from './pages/UserBlogs'
 import { Toaster } from 'sonner'
 import {Dashboard} from './pages/Dashboard'
-import { ProtectedRoute } from './components/ProtectedRoute'
+import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute'
 
 
 function App() {
@@ -18,10 +18,10 @@ function App() {
       <BrowserRouter>
       <Toaster richColors  />
         <Routes>
-        <Route path="/" element={<LandingPage/>} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/blog/:id" element={<BlogContent />} />
+        <Route path="/" element={<PublicRoute><LandingPage/></PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+          <Route path="/signin" element={<PublicRoute><Signin /></PublicRoute>} />
+          <Route path="/blog/:id" element={<PublicRoute><BlogContent /></PublicRoute>} />
 
           <Route path="/blogs" element={ <ProtectedRoute><Blog /></ProtectedRoute>} />
           <Route path="/publish" element={<ProtectedRoute><Publish /></ProtectedRoute>} />
