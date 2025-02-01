@@ -30,7 +30,7 @@ export const BlogCard = ({
 
   return (
     <Link to={`/blog/${id}`}>
-      <div className="p-4 border-b border-slate-200 pb-4 w-80 lg:w-full">
+      <div className="p-4 border-b border-slate-200 pb-4 w-96 lg:w-full">
         <div className="flex">
           <div className="flex justify-center flex-col">
             <Avatar name={authorName} size={"small"} />
@@ -50,7 +50,7 @@ export const BlogCard = ({
             <div className="text-xl font-semibold mt-1">{shortTitle}</div>
 
             <div className="text-md font-thin overflow-hidden">
-              {parse(plainTextContent.slice(0, 200) + "....")}
+              {parse(plainTextContent.slice(0, 120) + "....")}
             </div>
 
             <div className="text-slate-500 text-sm font-thin flex ">
@@ -65,7 +65,7 @@ export const BlogCard = ({
               <img
                 src={firstImgUrl}
                 alt="First blog image"
-                className="mt-2 w-44 h-28 object-cover"
+                className="mt-1 md:w-56 w-72 md:h-32 h-40 object-cover rounded-lg"
               />
             )}
           </div>

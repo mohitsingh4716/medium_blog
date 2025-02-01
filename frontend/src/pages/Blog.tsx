@@ -24,8 +24,8 @@ export const Blog = () => {
   return (
     <div>
       <Appbar/>
-    <div className="flex justify-center">
-        <div className="max-w-xl mt-16">
+    <div className="flex   justify-center">
+        <div className="max-w-xl md:max-w-2xl mt-16">
         {blogs
           .slice() 
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) 
