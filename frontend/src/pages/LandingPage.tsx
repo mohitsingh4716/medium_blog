@@ -113,21 +113,21 @@ export const LandingPage = () => {
     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
       {/* Left Side - Text Content */}
       <div className="lg:w-2/3 text-center lg:text-left">
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-8 leading-[0.9] tracking-tight">
+        <h1 className="text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-8 leading-[0.9] tracking-tight pt-8 md:pt-4 lg:pt-0">
           Connect with the
           <span className="block text-[#95b8d1]">Modern World</span>
         </h1>
-        <p className="text-xl md:text-2xl lg:text-2xl text-gray-200 mb-12 font-light leading-relaxed max-w-2xl">
+        <p className="text-xl md:text-2xl lg:text-2xl text-gray-200 mb-8 lg:mb-12 font-light leading-relaxed max-w-2xl">
           Insights, stories, and ideas for everyone.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
           <Link to="/blogs">
-            <button className="bg-white text-black hover:text-white px-10 py-4 rounded-full hover:bg-green-800 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button className=" bg-white text-black hover:text-white px-10 py-4 rounded-full hover:bg-green-800 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
               Start Writing
             </button>
           </Link>
           <Link to="/blogs">
-            <button className="border-2 border-[#95b8d1] text-[#95b8d1] px-10 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-300 font-semibold text-lg backdrop-blur-sm">
+            <button className="hidden lg:flex border-2 border-[#95b8d1] text-[#95b8d1] px-10 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-300 font-semibold text-lg backdrop-blur-sm">
               Explore Stories
             </button>
           </Link>
@@ -324,7 +324,7 @@ export const LandingPage = () => {
 
 const Header = () => {
   return (
-    <div className="fixed z-50 bg-white border-b border-gray-200 flex justify-between px-8 py-4 h-auto w-full">
+    <div className="fixed z-50 bg-white border-b border-gray-200 flex justify-between px-6 py-3 h-auto w-full">
       <div className="flex items-center">
         <div className="w-8 h-8 rounded-full flex items-center justify-center mr-1">
           {/* <Edit3 className="w-5 h-5 text-white" /> */}
@@ -335,9 +335,9 @@ const Header = () => {
 
   
     
-      <div className="flex items-center gap-4">   
+      <div className="flex items-center gap-0 md:gap-4">   
         <Link to="/signin">
-          <button className="text-black border border-gray-300 font-medium focus:outline-none hover:bg-gray-100 focus:ring-4 rounded-full text-sm px-6 py-3">
+          <button className="text-black border border-gray-300 font-medium focus:outline-none hover:bg-gray-100 focus:ring-4 rounded-full text-sm px-6 py-[9px] md:py-3">
             Sign In
           </button>
          </Link>
