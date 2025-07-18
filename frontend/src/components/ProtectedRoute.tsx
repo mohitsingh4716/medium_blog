@@ -17,7 +17,7 @@ interface PublicRouteProps {
 
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/" replace />;
+  return isAuthenticated() ? children : <Navigate to="/signin" replace />;
 };
 
 
