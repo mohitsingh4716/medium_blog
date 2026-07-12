@@ -109,3 +109,42 @@ userInfo.get('/', async (c) => {
       return c.json({ error: "Error while fetching posts" });
     }
   });
+
+  userInfo.put('/', async (c) => {
+    const authHeader = c.req.header("authorization");
+    try {
+      if (!authHeader) {
+        c.status(401);
+        return c.json({ error: "Unauthorized" });
+      }
+      const response = await verify(authHeader, c.env.JWT_SECRET) as { id: string };
+      if (!response.id) {
+        c.status(401);
+        return c.json({ error: "Unauthorized" });
+      }
+      
+      const body = await c.req.json();
+      const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
+
+      const user = await prisma.user.update({
+        where: { id: response.id },
+        data: {
+          name: body.name,
+          description: body.description,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          description: true,
+        }
+      });
+
+      return c.json({ user });
+    } catch (e) {
+      c.status(400);
+      return c.json({ error: "Error while updating profile" });
+    }
+  });

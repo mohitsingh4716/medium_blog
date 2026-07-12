@@ -1,51 +1,39 @@
-import { Appbar } from "../components/Appbar";
-
-const Loading = () => {
+const CardSkeleton = () => {
   return (
-    <div>
-      <div className="flex justify-center">
-        <div className="p-4 border-b border-slate-200 pb-4  animate-pulse ">
-          <div className="flex">
-            <div className="bg-gray-200 rounded-full h-6 w-6"></div>
+    <div className="p-6 border-b border-zinc-150 animate-pulse space-y-4">
+      {/* Author details */}
+      <div className="flex items-center gap-2.5">
+        <div className="w-6 h-6 bg-zinc-200 rounded-full"></div>
+        <div className="h-3 bg-zinc-200 rounded w-1/4"></div>
+        <div className="h-3 bg-zinc-200 rounded w-1/6"></div>
+      </div>
 
-            <div className="bg-gray-200 ml-2 p-1 h-3 w-1/3 rounded mt-2"></div>
-          </div>
-
-          <div className=" flex flex-col w-80 lg:w-[500px] space-y-2">
-            <div className="bg-gray-200 h-2  rounded mt-3"></div>
-            <div className="bg-gray-200 h-2 rounded mt-2"></div>
-            <div className="bg-gray-200 h-2 rounded mt-2"></div>
-            <div className="bg-gray-200 h-2 rounded mt-2"></div>
-             <div>
-             <div className="bg-gray-200 h-2 w-1/2 rounded mt-1"></div>
-             <div className="bg-gray-200 h-2 w-1/2 rounded mt-1"></div>
-             </div>
-            
+      <div className="flex flex-col md:flex-row gap-6 justify-between">
+        {/* Title / Description */}
+        <div className="flex-1 space-y-3">
+          <div className="h-5 bg-zinc-200 rounded w-3/4"></div>
+          <div className="space-y-2">
+            <div className="h-3.5 bg-zinc-200 rounded w-full"></div>
+            <div className="h-3.5 bg-zinc-200 rounded w-5/6"></div>
           </div>
         </div>
+        {/* Cover image thumbnail */}
+        <div className="shrink-0 w-full md:w-32 aspect-video md:aspect-[4/3] bg-zinc-200 rounded-xl"></div>
       </div>
+
+      {/* Footer stats */}
+      <div className="h-3 bg-zinc-200 rounded w-1/5"></div>
     </div>
   );
 };
 
-
-
 export const BlogLoading = () => {
-    return(
-        <div className="">
-             <Appbar/>
-
-             
-           <div className="pt-16"> 
-           <Loading/>
-           </div>
-            <Loading/>
-            <Loading/>
-            <Loading/>
-            <Loading/> 
-           
-          
-        </div>
-
-    )
-}
+  return (
+    <div className="max-w-2xl mx-auto divide-y divide-zinc-100">
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+    </div>
+  );
+};

@@ -2,6 +2,7 @@ import { FullBlogContent } from "../components/FullBlogContent";
 import { useBlogContent } from "../hooks/useBlogContent"
 import { useParams } from "react-router-dom";
 import { Loadings } from "../Loadings/Loadings";
+import { Appbar } from "../components/Appbar";
 
 export const BlogContent = () => {
     const {id}= useParams();
@@ -10,14 +11,17 @@ export const BlogContent = () => {
     });
 
        if(loading || !blog){
-        return <div >
-           <Loadings/>
+        return <div className="bg-white min-h-screen">
+           <Appbar />
+           <div className="pt-4">
+             <Loadings/>
+           </div>
         </div>
        }
    return (
-    <div>
-        <FullBlogContent blog={blog}  />
-    </div>
-  )
+     <div>
+         <FullBlogContent blog={blog}  />
+     </div>
+   )
 }
 

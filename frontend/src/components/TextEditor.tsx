@@ -86,7 +86,7 @@ export const TextEditor=({value,onChange}:{value:string, onChange: (value: strin
   
 
     return(
-      <div className="mt-4 lg:mt-8 w-96 lg:w-full " >
+      <div className="mt-4 lg:mt-8 w-[400px] lg:w-full " >
       <ReactQuill
         theme="snow"
         ref={quillRef}

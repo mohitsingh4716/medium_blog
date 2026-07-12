@@ -1,16 +1,16 @@
-import axios from "axios"
-import { Appbar } from "../components/Appbar"
-import { BACKEND_URL } from "../config"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { Appbar } from "../components/Appbar";
+import { BACKEND_URL } from "../config";
+import { useState, lazy, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 import '../index.css';
 import { toast } from "sonner";
-import { TextEditor } from "../components/TextEditor";
-import 'react-quill/dist/quill.snow.css';
 
+const TextEditor = lazy(() => import("../components/TextEditor").then(m => ({ default: m.TextEditor })));
+import 'react-quill/dist/quill.snow.css';
+import { Check, Edit3 } from "lucide-react";
 
 export const Publish = () => {
-
   const [blog, setBlog] = useState({
     title: "",
     content: "",
@@ -20,48 +20,74 @@ export const Publish = () => {
   const handleContentChange = (content: string) => {
     setBlog((prev) => ({ ...prev, content }));
 
+    // Auto-extract first image inside editor content if any
     const imgTagMatch = content.match(/<img[^>]+src="([^">]+)"/);
     const firstImageUrl = imgTagMatch ? imgTagMatch[1] : "";
 
     if (firstImageUrl) {
-      // console.log("First Image URL:", firstImageUrl);
       setBlog((prev) => ({ ...prev, firstImgUrl: firstImageUrl }));
     }
   };
 
-    
   return (
-    <div>
-        <Appbar/>
-   
-        <div className="flex  justify-center  pt-20 ">
-            <div className="max-w-screen-lg w-96  lg:w-full">
+    <div className="min-h-screen bg-zinc-50/50 pb-16">
+      <Appbar />
 
-                <input value={blog.title} onChange={(e)=>{
-                    setBlog((prev)=>({...prev, title: e.target.value}))
-                }} type="text" className=" bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full h-16 p-2.5 " placeholder="Title"/>
-                
-               {/* { JSON.stringify(blog)} */}
-
-                <TextEditor value={blog.content} onChange={handleContentChange} />
-
-                <div className="mt-20 lg:mt-16">
-                <PublishButton blog={blog} />
-                </div>
-                
-            </div>
+      <main className="md:max-w-4xl max-w-3xl mx-auto px-4 pt-10">
         
+        {/* Centered Write Card */}
+        <div className="bg-white border border-zinc-200/80 rounded-3xl p-6 sm:p-8 shadow-md space-y-5 animate-fade-in">
+          
+          {/* Header bar */}
+          <div className="border-b border-zinc-100 pb-4 flex items-center gap-2 text-zinc-800">
+            <Edit3 className="w-5 h-5 text-emerald-600" />
+            <h2 className="text-lg font-bold font-serif">Compose New Story</h2>
+          </div>
+
+          {/* Title Input */}
+          <div className="space-y-1.5">
+            <label className="block text-[10px] font-bold text-zinc-450 uppercase tracking-widest pl-0.5">
+              Story Title
+            </label>
+            <input
+              value={blog.title}
+              onChange={(e) => {
+                setBlog((prev) => ({ ...prev, title: e.target.value }));
+              }}
+              type="text"
+              className="w-full px-4 py-3 bg-zinc-50/50 border border-zinc-200 rounded-xl text-base font-bold font-serif focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all placeholder-zinc-300"
+              placeholder="Give your story a title..."
+              required
+            />
+          </div>
+
+          {/* Editor block */}
+          <div className="space-y-1.5 pt-2">
+            <label className="block text-[10px] font-bold text-zinc-450 uppercase tracking-widest pl-0.5 mb-1.5">
+              Body Content
+            </label>
+            <Suspense fallback={
+              <div className="h-40 border border-zinc-200 rounded-xl bg-zinc-50/50 flex items-center justify-center text-xs text-zinc-400 animate-pulse">
+                Loading editor modules...
+              </div>
+            }>
+              <TextEditor value={blog.content} onChange={handleContentChange} />
+            </Suspense>
+          </div>
+
+          {/* Actions Footer Panel */}
+          <div className="border-t border-zinc-150 mt-8 pt-12 flex justify-end">
+            <PublishButton blog={blog} />
+          </div>
+
         </div>
-   
+
+      </main>
     </div>
-  )
-}
+  );
+};
 
-
-
-
-
-export const PublishButton = ( {blog}: any) => {
+export const PublishButton = ({ blog }: any) => {
   const navigate = useNavigate();
 
   const handlePublish = async () => {
@@ -70,42 +96,40 @@ export const PublishButton = ( {blog}: any) => {
       return;
     }
     
-    const loadtoast= toast.loading("Publishing your blog...");
+    const loadtoast = toast.loading("Publishing your blog...");
 
-      try{
-        const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, 
-          blog
-      , {
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/blog`, 
+        blog, 
+        {
           headers: {
-              Authorization: localStorage.getItem("token")
+            Authorization: localStorage.getItem("token")
           }
-      });
+        }
+      );
    
       toast.dismiss(loadtoast);
       toast.success("Blog published successfully!");
       navigate(`/blog/${response.data.id}`);
-      }catch(e:any){
-        toast.dismiss(loadtoast);
-        if (e.response.data.error) {
-          toast.warning(e.response.data.error);
-        } else {
-          console.error("An error occurred:", e);
-          toast.error("An error occurred. Please try again later");
+    } catch (e: any) {
+      toast.dismiss(loadtoast);
+      if (e.response?.data?.error) {
+        toast.warning(e.response.data.error);
+      } else {
+        console.error("An error occurred:", e);
+        toast.error("An error occurred. Please try again later");
       }
     }
-      
   };
 
   return (
-      <button 
-          onClick={handlePublish} 
-          type="submit" 
-          className="inline-flex items-center  py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-          Publish
-      </button>
+    <button 
+      onClick={handlePublish} 
+      type="submit" 
+      className="inline-flex items-center gap-1.5 py-2.5 px-6 text-xs font-semibold text-center text-white bg-emerald-600 hover:bg-emerald-700 rounded-full shadow-sm hover:shadow-md transition-all active:scale-95 duration-100"
+    >
+      <Check className="w-3.5 h-3.5" /> Publish Story
+    </button>
   );
 };
-
-
-
-    

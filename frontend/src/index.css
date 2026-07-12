@@ -4,47 +4,174 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply text-zinc-900 bg-white font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900;
+  }
+}
 
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e4e4e7;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4d4d8;
+}
+
+/* Prose/Rich-text formatting */
+.prose-custom {
+  font-family: 'Lora', 'Baskervville', Georgia, serif;
+  font-size: 1.05rem; /* 16.8px */
+  line-height: 1.65;
+  color: #1f2937;
+}
+
+.prose-custom p {
+  margin-bottom: 1rem;
+}
+
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3,
+.prose-custom h4 {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-custom h1 { font-size: 1.875rem; }
+.prose-custom h2 { font-size: 1.5rem; }
+.prose-custom h3 { font-size: 1.25rem; }
+.prose-custom h4 { font-size: 1.125rem; }
+
+.prose-custom blockquote {
+  font-style: italic;
+  border-left: 4px solid #10b981;
+  padding-left: 1.25rem;
+  margin: 1rem 0;
+  color: #4b5563;
+}
+
+.prose-custom pre, 
+.prose-custom code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+}
+
+.prose-custom code {
+  padding: 0.15rem 0.3rem;
+}
+
+.prose-custom pre {
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.prose-custom ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose-custom ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose-custom li {
+  margin-bottom: 0.25rem;
+}
+
+/* Custom React Quill Styling */
+.editor-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-wrapper:focus-within .ql-toolbar.ql-snow,
+.editor-wrapper:focus-within .ql-container.ql-snow {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.15);
+}
+
+.ql-toolbar.ql-snow {
+  background-color: #f9fafb;
+  border-color: #e4e4e7 !important;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding: 6px 10px !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.ql-container.ql-snow {
+  border-color: #e4e4e7 !important;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
 .ql-editor {
-    font-size: 18px; /* Default font size */
-  }
-
-h1 {
-    font-size: 2.5rem; /* 40px */
+  min-height: 250px;
+  max-height: 380px;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.975rem !important;
+  line-height: 1.6 !important;
+  padding: 12px 16px !important;
+  color: #1f2937;
 }
 
-h2 {
-    font-size: 2rem; /* 32px */
+/* Custom placeholder */
+.ql-editor.ql-blank::before {
+  font-style: normal !important;
+  color: #a1a1aa !important;
+  font-family: ui-sans-serif, system-ui, sans-serif !important;
+  font-size: 0.9rem !important;
+  left: 16px !important;
+  top: 12px !important;
 }
-
-h3 {
-    font-size: 1.75rem; /* 28px */
-}
-
-h4 {
-    font-size: 1.5rem; /* 24px */
-}
-
-h5 {
-    font-size: 1.25rem; /* 20px */
-}
-
-h6 {
-    font-size: 1rem; /* 16px */
-}
-
-ul {
-    list-style-type: disc; /* or decimal for ordered lists */
-    padding-left: 20px; /* Adds left padding to display bullets/numbers */
-}
-
-ol {
-    list-style-type: decimal; /* This ensures the list is numbered */
-    padding-left: 20px; /* Adds left padding for proper number display */
-}
-
-
-

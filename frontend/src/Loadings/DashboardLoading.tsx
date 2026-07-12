@@ -1,55 +1,51 @@
-import { Appbar } from "../components/Appbar";
+export const DashboardLoading = () => {
+  return (
+    <div className="max-w-7xl mx-auto px-4 pt-10 pb-16 animate-pulse space-y-8">
+      {/* Header section */}
+      <div className="flex justify-between items-center">
+        <div className="space-y-2 flex-1">
+          <div className="h-8 bg-zinc-200 rounded w-1/4"></div>
+          <div className="h-4 bg-zinc-200 rounded w-1/3"></div>
+        </div>
+        <div className="w-36 h-10 bg-zinc-200 rounded-full"></div>
+      </div>
 
-const DashboardLoading = () => {
-    return (
-      <div className="min-h-screen bg-gray-100">
-        <Appbar />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-6">
-          
-          <div className="bg-white rounded-2xl shadow-lg p-8 mt-12 border-t-4 border-gray-500 animate-pulse">
-            <h1 className="text-4xl font-extrabold text-gray-700 mb-6 bg-gray-300 h-8 rounded w-2/3"></h1>
-            <div className="space-y-5">
-              <div className="flex justify-between items-center border-b pb-3">
-                <div className="w-1/3 bg-gray-300 h-6 rounded"></div>
-                <div className="w-1/2 bg-gray-200 h-6 rounded"></div>
-              </div>
-  
-              <div className="flex justify-between items-center border-b pb-3">
-                <div className="w-1/3 bg-gray-300 h-6 rounded"></div>
-                <div className="w-1/2 bg-gray-200 h-6 rounded"></div>
-              </div>
-  
-              <div className="md:flex inline-block justify-between border-b pb-3">
-                <div className="w-1/3 bg-gray-300 h-6 rounded"></div>
-                <div className="w-1/2 bg-gray-200 h-6 rounded"></div>
-              </div>
-  
-              <div className="flex justify-between items-center">
-                <div className="w-1/3 bg-gray-300 h-6 rounded"></div>
-                <div className="w-1/4 bg-gray-200 h-6 rounded"></div>
-              </div>
+      {/* Grid of stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white p-5 rounded-2xl border border-zinc-200 h-24 flex items-center gap-4">
+            <div className="w-10 h-10 bg-zinc-200 rounded-xl shrink-0"></div>
+            <div className="space-y-2 flex-1">
+              <div className="h-6 bg-zinc-200 rounded w-1/2"></div>
+              <div className="h-3 bg-zinc-200 rounded w-1/3"></div>
             </div>
           </div>
-  
-  
-          <div className="bg-white rounded-2xl shadow-lg p-6 col-span-1 md:col-span-2 mt-12 border-t-4 border-gray-500 animate-pulse">
-            <h2 className="text-3xl font-semibold text-gray-600 mb-4 bg-gray-300 h-8 rounded w-1/2"></h2>
-            <div className="space-y-4">
-              {[...Array(5)].map((_, index) => (
-                <div key={index} className="border-b pb-4 flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-gray-300 rounded-lg"></div>
-                  <div className="w-3/4">
-                    <div className="bg-gray-300 h-6 w-3/4 rounded"></div>
-                    <div className="pt-1 pl-2 bg-gray-200 h-4 w-1/3 rounded mt-2"></div>
-                  </div>
-                </div>
-              ))}
+        ))}
+      </div>
+
+      {/* Stories list loading table */}
+      <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">
+        <div className="px-6 py-5 border-b border-zinc-100 h-16 flex items-center justify-between">
+          <div className="h-6 bg-zinc-200 rounded w-1/6"></div>
+          <div className="h-6 bg-zinc-200 rounded w-1/12"></div>
+        </div>
+
+        <div className="divide-y divide-zinc-100 p-6 space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-center justify-between py-2">
+              <div className="flex items-center gap-3 flex-1">
+                <div className="w-10 h-7 bg-zinc-200 rounded shrink-0"></div>
+                <div className="h-4 bg-zinc-200 rounded w-1/3"></div>
+              </div>
+              <div className="h-4 bg-zinc-200 rounded w-1/12 hidden md:block"></div>
+              <div className="h-4 bg-zinc-200 rounded w-1/12"></div>
+              <div className="w-20 h-8 bg-zinc-200 rounded-lg"></div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    );
-  };
-  
-  export default DashboardLoading;
-  
+    </div>
+  );
+};
+
+export default DashboardLoading;

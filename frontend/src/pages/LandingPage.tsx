@@ -143,6 +143,8 @@ export const LandingPage = () => {
               src={illus} 
               alt="BlogSpace Illustration" 
               className=" md:w-[500px] md:h-[500px] opacity-90"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           

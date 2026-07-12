@@ -9,6 +9,7 @@ export interface Blog{
     title:string,
     image:string,
     author:{
+        id: string,
         name:string,
         description:string,
     }

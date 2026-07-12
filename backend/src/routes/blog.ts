@@ -73,40 +73,48 @@ blogRouter.post("/", async(c) => {
      });
 });
 
-// blogRouter.put("/", async(c) => {
+blogRouter.put("/", async(c) => {
      
-//     const body= await c.req.json()
+    const body= await c.req.json()
+    const userId = c.get("userId");
 
-//     const {success}= updatePostInput.safeParse(body);
+    const {success}= updatePostInput.safeParse(body);
 
-//     if(!success){
-//         c.status(411);
-//         return c.json({
-//             message:"Inputs not correct"
-//         })
-//     }
+    if(!success){
+        c.status(411);
+        return c.json({
+            message:"Inputs not correct"
+        })
+    }
 
-//     const prisma = new PrismaClient({
-//         datasourceUrl: c.env.DATABASE_URL,
-//       }).$extends(withAccelerate());
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
 
-//       const post = await prisma.post.update({
-//         where:{
-//             id:body.id
-//         },
+    try {
+      const post = await prisma.post.update({
+        where:{
+            id:body.id,
+            authorId: userId,
+        },
 
-//         data:{
-//             title: body.title,
-//             content: body.content,
-            
-//         }
-//       })
+        data:{
+            title: body.title,
+            content: body.content,
+            image: body.firstImgUrl,
+        }
+      })
 
-//     return c.json({
-//     id:post.id,
-   
-//      });
-// });
+      return c.json({
+        id:post.id,
+      });
+    } catch (e) {
+      c.status(400);
+      return c.json({
+        error: "Error while updating blog"
+      });
+    }
+});
 
 blogRouter.get('/', async(c)=>{
     const body= await c.req.json();
@@ -149,6 +157,7 @@ blogRouter.get("/bulk", async(c) => {
           
             author:{
                 select:{
+                    id:true,
                     name:true,
                     description:true,
                 }
@@ -183,6 +192,7 @@ blogRouter.get('/:id', async (c) => {
                 createdAt: true,
                 author:{
                     select:{
+                        id:true,
                         name:true,
                         description:true,
                     }
