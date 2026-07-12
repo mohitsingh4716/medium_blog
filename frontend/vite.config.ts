@@ -20,23 +20,7 @@ export default defineConfig(({mode})=> ({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // React
-          if (
-            id.includes("node_modules/react/") ||
-            id.includes("node_modules/react-dom/")
-          ) {
-            return "react-core";
-          }
-
-          // React Router
-          if (
-            id.includes("node_modules/react-router-dom") ||
-            id.includes("node_modules/react-router")
-          ) {
-            return "react-router";
-          }
-
-          // React Quill
+          // Split React Quill editor
           if (
             id.includes("node_modules/react-quill") ||
             id.includes("node_modules/quill")
@@ -44,14 +28,9 @@ export default defineConfig(({mode})=> ({
             return "react-quill";
           }
 
-          // Highlight.js
+          // Split highlight.js
           if (id.includes("node_modules/highlight.js")) {
             return "highlight-js";
-          }
-
-          // Remaining vendor libraries
-          if (id.includes("node_modules")) {
-            return "vendor";
           }
         },
       },
