@@ -94,13 +94,7 @@ export const Dashboard = () => {
     setPostToDelete(null);
   };
 
-  const handleDiscardDraft = () => {
-    if (window.confirm("Are you sure you want to discard this draft?")) {
-      localStorage.removeItem("blog_draft");
-      setLocalDraft(null);
-      toast.success("Draft discarded");
-    }
-  };
+
 
   // Sort by date (newest first)
   const sortedPosts = [...posts].sort(
@@ -111,7 +105,7 @@ export const Dashboard = () => {
     <div className="min-h-screen bg-[#fafafa] pb-16">
       <Appbar />
       
-      <main className="max-w-4xl mx-auto px-4 pt-20 space-y-6 animate-fade-in">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 space-y-8 animate-fade-in">
         
         {/* Header Dashboard section */}
         <div className="flex justify-between items-center">
@@ -122,45 +116,15 @@ export const Dashboard = () => {
             </p>
           </div>
           <Link to="/publish">
-            <button className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-4.5 py-2.5 rounded-full text-xs font-semibold shadow-sm transition-all duration-100 active:scale-95">
+            <button className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white px-4.5 p-4 rounded-full text-xs font-semibold shadow-sm transition-all duration-100 active:scale-95">
               <Plus className="w-3.5 h-3.5" /> Write Story
             </button>
           </Link>
         </div>
 
-        {/* Local Draft Section (Renders only if draft exists in localStorage) */}
-        {localDraft && (
-          <div className="bg-amber-50/50 border border-amber-200/60 rounded-2xl p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4 shadow-sm">
-            <div className="min-w-0">
-              <span className="inline-block text-[9px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded uppercase tracking-wider">
-                Unsaved Draft
-              </span>
-              <h4 className="font-semibold text-zinc-900 text-sm mt-1.5 truncate">
-                {localDraft.title || "Untitled Draft Story"}
-              </h4>
-              <p className="text-[11px] text-zinc-500 font-light truncate mt-0.5">
-                {localDraft.description || "A draft story saved in local storage."}
-              </p>
-            </div>
-            <div className="flex gap-2 shrink-0">
-              <Link to="/publish">
-                <button className="px-4 py-1.5 bg-zinc-900 hover:bg-zinc-850 text-white text-xs font-semibold rounded-full active:scale-95 transition-all">
-                  Resume
-                </button>
-              </Link>
-              <button 
-                onClick={handleDiscardDraft}
-                className="px-4 py-1.5 border border-zinc-200 text-zinc-650 hover:text-red-650 hover:bg-red-50/30 text-xs font-semibold rounded-full active:scale-95 transition-all"
-              >
-                Discard
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Reordered Section: Your Stories Listed First */}
-        <div className="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-5 border-b border-zinc-100 flex items-center justify-between">
+        <div className="bg-white rounded-3xl border border-zinc-200 shadow-sm overflow-hidden">
+          <div className="px-8 sm:px-10 py-6 border-b border-zinc-100 flex items-center justify-between">
             <h2 className="text-lg font-bold text-zinc-900 font-serif">Your Stories</h2>
             <span className="text-[10px] bg-zinc-50 border border-zinc-200 text-zinc-500 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
               {sortedPosts.length} Published
@@ -168,66 +132,129 @@ export const Dashboard = () => {
           </div>
 
           {sortedPosts.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-zinc-50 border-b border-zinc-100 text-xs font-semibold text-zinc-400 uppercase tracking-widest">
-                    <th className="px-8 py-4.5">Title</th>
-                    <th className="px-8 py-4.5">Published Date</th>
-                    <th className="px-8 py-4.5 text-right font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-100 text-sm">
-                  {sortedPosts.map((post: any) => (
-                    <tr key={post.id} className="hover:bg-zinc-50/30 transition-colors">
-                      <td className="px-8 py-5.5">
-                        <div className="flex items-center gap-4">
-                          {post.image && (
-                            <img
-                              src={post.image}
-                              alt={post.title}
-                              className="w-16 h-11 object-cover rounded-xl bg-zinc-100 shrink-0 border border-zinc-200/60 shadow-inner"
-                              loading="lazy"
-                            />
-                          )}
-                          <div className="min-w-0">
-                            <Link 
-                              to={`/blog/${post.id}`} 
-                              className="text-lg font-bold text-zinc-950 font-serif hover:text-emerald-700 hover:underline transition-colors line-clamp-1 leading-snug"
-                            >
-                              {post.title}
-                            </Link>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-8 py-5.5 text-zinc-500 text-sm font-medium whitespace-nowrap">
-                        {moment(post.createdAt).format("MMM D, YYYY")}
-                      </td>
-                      <td className="px-8 py-5.5 text-right whitespace-nowrap">
-                        <div className="flex items-center justify-end gap-2">
-                          <Link to={`/publish?id=${post.id}`}>
-                            <button className="p-2 border border-zinc-200 rounded-xl hover:bg-zinc-50 hover:border-zinc-350 text-zinc-600 hover:text-zinc-950 transition-all active:scale-95 duration-100" title="Edit story">
-                              <Edit className="w-4 h-4" />
-                            </button>
-                          </Link>
-                          <button
-                            onClick={(e) => handleDeleteClick(post.id, e)}
-                            className="p-2 border border-zinc-200 rounded-xl hover:bg-red-50 hover:border-red-250 text-zinc-650 hover:text-red-650 transition-all active:scale-95 duration-100"
-                            title="Delete story"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+            <>
+              {/* Desktop View - Spacious Table */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="w-full text-left border-collapse table-fixed">
+                  <thead>
+                    <tr className="bg-zinc-50/50 border-b border-zinc-100 text-xs font-semibold text-zinc-400 uppercase tracking-widest">
+                      <th className="w-[70%] px-8 sm:px-10 py-5">Title</th>
+                      <th className="w-[15%] px-8 sm:px-10 py-5">Published Date</th>
+                      <th className="w-[15%] px-8 sm:px-10 py-5 text-right font-medium">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-100 text-sm">
+                    {sortedPosts.map((post: any) => (
+                      <tr key={post.id} className="group hover:bg-zinc-50/50 transition-all duration-200">
+                        <td className="px-8 sm:px-10 py-6 align-middle">
+                          <div className="flex items-center gap-5">
+                            {post.image ? (
+                              <div className="w-24 h-16 rounded-xl overflow-hidden border border-zinc-200/80 shadow-sm shrink-0 bg-zinc-50">
+                                <img
+                                  src={post.image}
+                                  alt={post.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  loading="lazy"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-24 h-16 rounded-xl border border-zinc-200/80 shadow-sm shrink-0 bg-zinc-50 flex items-center justify-center text-zinc-300">
+                                <BookOpen className="w-6 h-6 stroke-[1.5]" />
+                              </div>
+                            )}
+                            <div className="min-w-0">
+                              <Link 
+                                to={`/blog/${post.id}`} 
+                                className="text-base md:text-lg lg:text-xl font-bold text-zinc-950 font-serif leading-snug group-hover:text-emerald-700 transition-colors duration-200 line-clamp-2"
+                              >
+                                {post.title}
+                              </Link>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-8 sm:px-10 py-6 text-zinc-550 text-base font-medium whitespace-nowrap align-middle">
+                          {moment(post.createdAt).format("MMM D, YYYY")}
+                        </td>
+                        <td className="px-8 sm:px-10 py-6.5 text-right whitespace-nowrap align-middle">
+                          <div className="flex items-center justify-end gap-2.5">
+                            <Link to={`/publish?id=${post.id}`}>
+                              <button 
+                                className="w-11 h-11 flex items-center justify-center border border-zinc-200 rounded-xl hover:bg-zinc-50 hover:border-zinc-350 hover:scale-105 active:scale-95 text-zinc-600 hover:text-zinc-950 transition-all duration-150" 
+                                title="Edit story"
+                              >
+                                <Edit className="w-4.5 h-4.5" />
+                              </button>
+                            </Link>
+                            <button
+                              onClick={(e) => handleDeleteClick(post.id, e)}
+                              className="w-11 h-11 flex items-center justify-center border border-zinc-200 rounded-xl hover:bg-red-50 hover:border-red-250 hover:scale-105 active:scale-95 text-zinc-600 hover:text-red-650 transition-all duration-150"
+                              title="Delete story"
+                            >
+                              <Trash2 className="w-4.5 h-4.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile/Tablet View - Stacked Cards */}
+              <div className="block md:hidden divide-y divide-zinc-100">
+                {sortedPosts.map((post: any) => (
+                  <div key={post.id} className="p-6 hover:bg-zinc-50/30 transition-colors duration-150 flex flex-col gap-4">
+                    <div className="flex gap-4 items-start">
+                      {post.image ? (
+                        <div className="w-20 h-14 rounded-lg overflow-hidden border border-zinc-200 shadow-sm shrink-0 bg-zinc-50">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-20 h-14 rounded-lg border border-zinc-200 shrink-0 bg-zinc-50 flex items-center justify-center text-zinc-300">
+                          <BookOpen className="w-5 h-5 stroke-[1.5]" />
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <Link 
+                          to={`/blog/${post.id}`} 
+                          className="text-base font-bold text-zinc-950 font-serif leading-snug hover:text-emerald-700 transition-colors line-clamp-2"
+                        >
+                          {post.title}
+                        </Link>
+                        <span className="block text-zinc-450 text-xs mt-1">
+                          {moment(post.createdAt).format("MMM D, YYYY")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end gap-2.5 pt-2 border-t border-zinc-50">
+                      <Link to={`/publish?id=${post.id}`} className="flex-1 max-w-[120px]">
+                        <button 
+                          className="w-full py-2 flex items-center justify-center gap-1.5 border border-zinc-200 rounded-xl hover:bg-zinc-50 text-xs font-semibold text-zinc-700 transition-all"
+                        >
+                          <Edit className="w-3.5 h-3.5" /> Edit
+                        </button>
+                      </Link>
+                      <button
+                        onClick={(e) => handleDeleteClick(post.id, e)}
+                        className="flex-1 max-w-[120px] py-2 flex items-center justify-center gap-1.5 border border-zinc-200 rounded-xl hover:bg-red-50 hover:text-red-650 hover:border-red-200 text-xs font-semibold text-zinc-700 transition-all"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           ) : (
             <div className="text-center py-20 px-6">
-              <BookOpen className="w-8 h-8 text-zinc-200 mx-auto mb-3" />
-              <p className="text-zinc-500 text-sm mb-4 font-light">You haven't written any stories yet.</p>
+              <BookOpen className="w-8 h-8 text-zinc-250 mx-auto mb-3" />
+              <p className="text-zinc-550 text-sm mb-4 font-light">You haven't written any stories yet.</p>
               <Link to="/publish">
                 <button className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-full shadow-sm transition-colors active:scale-95 duration-100">
                   Create your first story

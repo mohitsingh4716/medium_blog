@@ -76,7 +76,7 @@ export const Publish = () => {
           </div>
 
           {/* Actions Footer Panel */}
-          <div className="border-t border-zinc-150 mt-8 pt-12 flex justify-end">
+          <div className=" lg:pb-4 pb-16  pt-20 lg:pt-10 flex justify-end">
             <PublishButton blog={blog} />
           </div>
 
