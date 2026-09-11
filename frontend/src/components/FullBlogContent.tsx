@@ -55,7 +55,7 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
       toast.dismiss(loadtoast);
       toast.success("Story deleted successfully!");
       navigate("/blogs");
-    } catch (error: any) {
+    } catch {
       toast.dismiss(loadtoast);
       toast.error("Failed to delete post. Please try again later.");
     }
@@ -73,13 +73,13 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
       const urlObj = new URL(blog.image);
       const uniquePath = urlObj.pathname;
       if (uniquePath && uniquePath.length > 3) {
-        const escapedPath = uniquePath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const imgRegex = new RegExp(`(<p[^>]*>\\s*)?<img[^>]+src=["'][^"']*${escapedPath}[^"']*["'][^>]*>(\\s*<\/p>)?`, 'i');
+        const escapedPath = uniquePath.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const imgRegex = new RegExp(`(<p[^>]*>\\s*)?<img[^>]+src=["'][^"']*${escapedPath}[^"']*["'][^>]*>(\\s*</p>)?`, 'i');
         sanitizedContent = blog.content.replace(imgRegex, '');
       }
-    } catch (e) {
-      const escapedUrl = blog.image.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-      const imgRegex = new RegExp(`(<p[^>]*>\\s*)?<img[^>]+src=["']${escapedUrl}["'][^>]*>(\\s*<\/p>)?`, 'i');
+    } catch {
+      const escapedUrl = blog.image.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const imgRegex = new RegExp(`(<p[^>]*>\\s*)?<img[^>]+src=["']${escapedUrl}["'][^>]*>(\\s*</p>)?`, 'i');
       sanitizedContent = blog.content.replace(imgRegex, '');
     }
   }
@@ -131,7 +131,7 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
             >
               <Link2 className="w-4.5 h-4.5" />
             </button>
-            <a 
+            {/* <a 
               href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(blog.title)}`}
               target="_blank" 
               rel="noreferrer"
@@ -139,7 +139,7 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
               title="Share on Twitter"
             >
               <Twitter className="w-4.5 h-4.5" />
-            </a>
+            </a> */}
             <a 
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
               target="_blank" 
@@ -178,7 +178,7 @@ export const FullBlogContent = ({ blog }: { blog: Blog }) => {
             <img 
               src={blog.image} 
               alt={blog.title} 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-contain" 
               loading="lazy"
               decoding="async"
             />

@@ -56,7 +56,7 @@ export const Settings = () => {
 
       // Dispatch storage event to trigger re-renders in listener components
       window.dispatchEvent(new Event("storage"));
-    } catch (err) {
+    } catch {
       toast.dismiss(loadtoast);
       toast.error("Failed to update profile. Please try again.");
     }
