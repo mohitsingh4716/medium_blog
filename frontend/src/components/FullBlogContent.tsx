@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { useUserProfile } from "../hooks/useUserProfile";
 import { 
-  Link2, Twitter, Linkedin, Trash2, Edit 
+  Link2, Linkedin, Trash2, Edit 
 } from "lucide-react";
 
 export const FullBlogContent = ({ blog }: { blog: Blog }) => {
